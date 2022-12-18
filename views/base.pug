@@ -9,9 +9,9 @@ html(lang="en")
 
     base(href="/")
 
-    title= OguzSancaktar
+    title=metadata.data.title
 
-    meta(name="description" content="Oguz Sancaktar portfolio and posts e boook")
+    meta(name="description" content=metadata.data.description)
 
     link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
     link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
@@ -27,12 +27,12 @@ html(lang="en")
     meta(property="og:description" content=metadata.data.description)
     meta(property="og:image" content=metadata.data.image ? meta.data.image.url : '')
 
-    //- meta(name="twitter:card" content="summary_large_image")
-    //- meta(name="twitter:title" content=meta.data.title)
-    //- meta(name="twitter:description" content=meta.data.description)
-    //- meta(name="twitter:image" content=meta.data.image ? meta.data.image.url : '')
+    meta(name="twitter:card" content="summary_large_image")
+    meta(name="twitter:title" content=metadata.data.title)
+    meta(name="twitter:description" content=metadata.data.description)
+    meta(name="twitter:image" content=metadata.data.image ? metadata.data.image.url : '')
 
-    //- link(rel="preconnect" href="https://www.google-analytics.com")
+    link(rel="preconnect" href="https://www.google-analytics.com")
     link(href='main.css' rel='stylesheet')
 
   body
