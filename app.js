@@ -20,6 +20,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(methodOverride())
 
+app.use(express.static(path.join(__dirname, 'public')))
+
 // Link Resolver
 const HandleLinkResolver = (doc) => {
   if (doc.type === 'product') {
@@ -67,7 +69,6 @@ const handleRequest = async (req, res) => {
 app.get('/', async (req, res) => {
   const defaults = await handleRequest(req, res)
   const home = await client.getSingle('home')
-  console.log('defaults', home.data)
 
   const { results: collections } = await client.get({
     predicates: prismic.predicates.at('document.type', 'collection'),

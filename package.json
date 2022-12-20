@@ -6,8 +6,8 @@
   "scripts": {
     "backend:build": "node app.js",
     "backend:development": "nodemon app.js",
-    "frontend:development": "webpack serve --progress --config webpack.config.development.js",
     "frontend:build": "webpack --progress --config webpack.config.build.js",
+    "frontend:development": "webpack serve --progress --config webpack.config.development.js",
     "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\""
   },
   "author": "Oguz Taha Sancaktar",
@@ -45,7 +45,8 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.8.0",
+    "include-media": "^1.4.10"
   },
   "dependencies": {
     "@prismicio/client": "^6.7.1",

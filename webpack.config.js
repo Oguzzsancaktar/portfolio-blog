@@ -1,15 +1,16 @@
 const path = require('path')
+
 const webpack = require('webpack')
 
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev'
 
 const dirApp = path.join(__dirname, 'app')
+const dirAssets = path.join(__dirname, 'assets')
 const dirShared = path.join(__dirname, 'shared')
 const dirStyles = path.join(__dirname, 'styles')
 const dirNode = 'node_modules'
@@ -17,9 +18,8 @@ const dirNode = 'node_modules'
 module.exports = {
   entry: [path.join(dirApp, 'index.js'), path.join(dirStyles, 'index.scss')],
 
-  // like alias you dont need to go back folders
   resolve: {
-    modules: [dirApp, dirShared, dirStyles, dirNode]
+    modules: [dirApp, dirAssets, dirShared, dirStyles, dirNode]
   },
 
   plugins: [
@@ -27,10 +27,9 @@ module.exports = {
       IS_DEVELOPMENT
     }),
 
-    new CopyWebpackPlugin({
+    new CopyPlugin({
       patterns: [
         {
-          // copies shared folder files to public folder
           from: './shared',
           to: ''
         }
@@ -38,23 +37,21 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      filename: '[name].css'
     }),
 
     new CleanWebpackPlugin()
-
-    // you dont need to import jquery to every file
-    // new webpack.ProvidePlugin({
-    // })
   ],
 
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: ['babel-loader']
+        use: {
+          loader: 'babel-loader'
+        }
       },
+
       {
         test: /\.scss$/,
         use: [
@@ -64,38 +61,35 @@ module.exports = {
               publicPath: ''
             }
           },
+
           {
             loader: 'css-loader'
           },
+
           {
             loader: 'postcss-loader'
           },
+
           {
             loader: 'sass-loader'
           }
         ]
       },
+
       {
-        test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2|fnt|webp)$/,
-        loader: 'file-loader',
-        options: {
-          // outputPath: "images",
-          name (file) {
-            return '[hash].[ext]'
-          }
+        test: /\.(png|jpg|gif|jpe?g|svg|woff2?|fnt|webp|mp4)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: '[name].[hash].[ext]'
         }
       },
 
       {
-        test: /\.(jpe?g|png)$/i,
-        type: 'asset'
-      },
-
-      {
         test: /\.(glsl|frag|vert)$/,
-        loader: 'raw-loader',
+        type: 'asset/source', // replaced raw-loader
         exclude: /node_modules/
       },
+
       {
         test: /\.(glsl|frag|vert)$/,
         loader: 'glslify-loader',
@@ -106,44 +100,6 @@ module.exports = {
 
   optimization: {
     minimize: true,
-    minimizer: [
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.imageminMinify,
-          options: {
-            plugins: [
-              ['gifsicle', { interlaced: true }],
-              ['jpegtran', { progressive: true }],
-              ['optipng', { optimizationLevel: 10 }],
-              // Svgo configuration here https://github.com/svg/svgo#configuration
-              [
-                'svgo',
-                {
-                  plugins: [
-                    {
-                      name: 'preset-default',
-                      params: {
-                        overrides: {
-                          removeViewBox: false,
-                          addAttributesToSVGElement: {
-                            params: {
-                              attributes: [
-                                { xmlns: 'http://www.w3.org/2000/svg' }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            ]
-          }
-        }
-      }),
-      new TerserPlugin()
-
-    ]
+    minimizer: [new TerserPlugin()]
   }
 }
