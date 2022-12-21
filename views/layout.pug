@@ -1,17 +1,16 @@
 block variables
 
 doctype html
-
-html(lang="en")
+html(lang='en')
   head
-    meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(charset='utf8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
 
-    base(href="/")
+    base(href='/')
 
-    title=metadata.data.title
+    title My Template
 
-    meta(name="description" content=metadata.data.description)
+    meta(name='description' content='My Site Description')
 
     link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
     link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
@@ -25,19 +24,23 @@ html(lang="en")
     meta(property="og:type" content="website")
     meta(property="og:title" content=metadata.data.title)
     meta(property="og:description" content=metadata.data.description)
-    meta(property="og:image" content=metadata.data.image ? meta.data.image.url : '')
+    meta(property="og:image" content=metadata.data.image ? metadata.data.image.url : '')
 
     meta(name="twitter:card" content="summary_large_image")
     meta(name="twitter:title" content=metadata.data.title)
     meta(name="twitter:description" content=metadata.data.description)
     meta(name="twitter:image" content=metadata.data.image ? metadata.data.image.url : '')
 
-    link(rel="preconnect" href="https://www.google-analytics.com")
+    //- link(rel="preconnect" href="https://www.google-analytics.com")
     link(href='main.css' rel='stylesheet')
 
+  //- Pug can be extended with views, so this template view is inherited by other views.
+
   body
-    include ./partials/preloader.pug
-    include ./partials/navigation.pug
+    include ./partials/preloader
+    include ./partials/navigation
 
     .content#content(data-template=template)
       block content
+
+    script(src="main.js")

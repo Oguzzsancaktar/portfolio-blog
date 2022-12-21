@@ -1,10 +1,13 @@
 module.exports = {
   root: true,
-  extends: ["standard"],
+  extends: ['standard'],
   globals: {
-    IS_DEVELOPMENT: "readonly",
+    IS_DEVELOPMENT: 'readonly'
   },
   parserOptions: {
-    ecmaVersion: 2022,
+    ecmaVersion: 2022
   },
-};
+  rules: {
+    'no-new': 'off'
+  }
+}
