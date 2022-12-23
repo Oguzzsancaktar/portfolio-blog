@@ -4,22 +4,37 @@
   background: $color-contessa;
   color: $color-white;
   text-align: center;
-  display: none;
+  // display: none;
 
-  z-index: z('preloader');
+  z-index: z("preloader");
 }
 .preloader__text {
-  @extend %title-53;
   max-width: 66rem;
+
+  font-size: 0;
+  span {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  span span {
+    @extend %title-53;
+  }
 }
 .preloader__number {
   @extend %description-14;
+
   position: absolute;
-  bottom: 5.1rem;
+  bottom: 7.3rem;
   left: 50%;
   transform: translateX(-50%);
+  overflow: hidden;
 
-  @include media('<phone') {
-    font-size: 2.5rem;
+  @include media("<phone") {
+    font-size: 2.4rem;
   }
+}
+
+.preloader__number__text {
+  display: inline-block;
 }

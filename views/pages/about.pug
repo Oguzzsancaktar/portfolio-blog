@@ -26,7 +26,7 @@ block content
                 .about__content__description!=ctx.prismicH.asHTML(section.primary.description)
 
               figure.about__content__media
-                img.about__content__media__image(src=section.primary.image.url alt=section.primary.image.alt)
+                img.about__content__media__image(data-src=section.primary.image.url alt=section.primary.image.alt)
 
         if section.slice_type == 'highligt'
           section.about__highlight
@@ -38,11 +38,11 @@ block content
 
               each media in section.items
                 figure.about__highlight__media
-                  img.about__highlight__media__image(src=media.image.url alt=media.image.alt)
+                  img.about__highlight__media__image(data-src=media.image.url alt=media.image.alt)
 
         if section.slice_type == 'gallery'
           section.about__gallery
             .about__gallery__wrapper
               each media in section.items
                 figure.about__gallery__media
-                  img.about__gallery__media__image(src=media.image.url alt=media.image.alt)
+                  img.about__gallery__media__image(data-src=media.image.url alt=media.image.alt)
