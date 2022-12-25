@@ -1,6 +1,6 @@
 .home {
   @extend %center;
-  @extend %cover;
+  @extend %page;
 
   background: $color-contessa;
   color: $color-white;
@@ -9,7 +9,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     height: 24rem;
     width: 100%;
     z-index: 1;
@@ -105,7 +105,7 @@
   transform: translateX(-50%);
   z-index: 2;
 
-  @include media('<phone') {
+  @include media("<phone") {
     bottom: 1rem;
     width: 55rem;
     height: 13.7rem;

@@ -10,9 +10,13 @@ class App {
     this.createPreloader()
     this.createContent()
     this.createPages()
+
+    this.addEventListeners()
     this.addLinkListeners()
+    this.update()
   }
 
+  // events
   createPreloader () {
     this.preloader = new Preloader()
     this.preloader.once('completed', this.onPreloaded.bind(this))
@@ -30,14 +34,16 @@ class App {
       detail: new Detail(),
       home: new Home()
     }
+
     this.page = this.pages[this.template]
 
     this.page.create()
-    // this.page.hide()
   }
 
   onPreloaded () {
     this.preloader.destroy()
+
+    this.onResize()
 
     this.page.show()
   }
@@ -59,12 +65,35 @@ class App {
       this.content.innerHTML = divContent.innerHTML
 
       this.page = this.pages[this.template]
+
+      this.onResize()
       this.page.create()
+
       this.page.show()
+
       this.addLinkListeners()
     } else {
       console.error(`response status: ${res.status}`)
     }
+  }
+
+  onResize () {
+    if (this.page && this.page.onResize) {
+      this.page.onResize()
+    }
+  }
+
+  // loop
+  update () {
+    if (this.page && this.page.update) {
+      this.page.update()
+    }
+    this.frame = window.requestAnimationFrame(this.update.bind(this))
+  }
+
+  // listeners
+  addEventListeners () {
+    window.addEventListener('resize', this.onResize.bind(this))
   }
 
   addLinkListeners () {

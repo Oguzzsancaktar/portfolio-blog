@@ -82,6 +82,8 @@ app.get('/about', async (req, res) => {
   const defaults = await handleRequest(req, res)
   const about = await client.getSingle('about')
 
+  console.log(about.data.body)
+
   res.render('pages/about', { ...defaults, about })
 })
 
