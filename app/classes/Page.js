@@ -1,11 +1,28 @@
-import each from 'lodash/each'
 import GSAP from 'gsap'
+
 import Prefix from 'prefix'
+
+import each from 'lodash/each'
+import normalizeWheel from 'normalize-wheel'
+
+import Title from '../animations/Title'
+import { map } from 'lodash'
+import Paragraph from '../animations/Paragraph'
+import Label from '../animations/Label'
+import Highlight from '../animations/Highlight'
 
 export default class Page {
   constructor ({ element, elements, id }) {
     this.selector = element
-    this.selectorChildren = { ...elements }
+    this.selectorChildren = {
+      ...elements,
+
+      animationsHighlights: '[data-animation="highlight"]',
+      animationsTitles: '[data-animation="title"]',
+      animationsParagraphs: '[data-animation="paragraph"]',
+      animationsLabels: '[data-animation="label"]'
+
+    }
     this.id = id
 
     this.transformPrefix = Prefix('transform')
@@ -37,6 +54,36 @@ export default class Page {
         this.elements[key] = this.elements[key][0]
       }
     })
+
+    this.createAnimations()
+  }
+
+  createAnimations () {
+    this.animations = []
+
+    this.animationsTitles = map(this.elements.animationsTitles, element => {
+      return new Title({ element })
+    })
+
+    this.animations.push(...this.animationsTitles)
+
+    this.animationsParagraphs = map(this.elements.animationsParagraphs, element => {
+      return new Paragraph({ element })
+    })
+
+    this.animations.push(...this.animationsParagraphs)
+
+    this.animationsLabels = map(this.elements.animationsLabels, element => {
+      return new Label({ element })
+    })
+
+    this.animations.push(...this.animationsLabels)
+
+    this.animationsHighlights = map(this.elements.animationsHighlights, element => {
+      return new Highlight({ element })
+    })
+
+    this.animations.push(...this.animationsHighlights)
   }
 
   show () {
@@ -80,12 +127,14 @@ export default class Page {
     if (this.elements?.wrapper) {
       this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
+
+    each(this.animations, animation => animation.onResize())
   }
 
   onMouseWheel (event) {
-    const { deltaY } = event
+    const { pixelY } = normalizeWheel(event)
 
-    this.scroll.target += deltaY
+    this.scroll.target += pixelY
   }
 
   update () {

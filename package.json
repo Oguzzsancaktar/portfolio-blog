@@ -37,6 +37,7 @@
     "include-media": "^1.4.10",
     "mini-css-extract-plugin": "^2.7.2",
     "nodemon": "^2.0.20",
+    "normalize-wheel": "^1.0.1",
     "postcss-loader": "^7.0.2",
     "prefix": "^1.0.0",
     "pug": "^3.0.2",
