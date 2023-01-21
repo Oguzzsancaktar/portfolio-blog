@@ -4,16 +4,26 @@ import Collections from 'pages/collections'
 import Detail from 'pages/detail'
 import Home from 'pages/home'
 import Preloader from './components/Preloader'
+import { Navigation } from './components/Navigation'
 
 class App {
   constructor () {
-    this.createPreloader()
     this.createContent()
+
+    this.createNavigation()
+    this.createPreloader()
     this.createPages()
 
     this.addEventListeners()
     this.addLinkListeners()
+
     this.update()
+  }
+
+  createNavigation () {
+    this.navigation = new Navigation({
+      template: this.template
+    })
   }
 
   // events
@@ -49,6 +59,7 @@ class App {
   }
 
   async onChange (url) {
+    console.log('url', url)
     await this.page.hide()
     const res = await window.fetch(url)
     if (res.status === 200) {
@@ -61,14 +72,15 @@ class App {
 
       this.template = divContent.getAttribute('data-template')
 
+      this.navigation.onChange(this.template)
+
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
       this.page = this.pages[this.template]
-
-      this.onResize()
       this.page.create()
 
+      this.onResize()
       this.page.show()
 
       this.addLinkListeners()
@@ -99,8 +111,12 @@ class App {
   addLinkListeners () {
     const links = document.querySelectorAll('a')
 
+    console.log('links', links)
+
     each(links, link => {
       link.onclick = (event) => {
+        console.log('event'
+          , event)
         const { target: { href } } = event
         event.preventDefault()
         this.onChange(href)

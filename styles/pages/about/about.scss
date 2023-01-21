@@ -1,8 +1,10 @@
 .about {
   @extend %page;
 
-  background: $color-cadet-blue;
-  color: $color-bright-grey;
+  // &--active {
+  //   background: $color-cadet-blue;
+  //   color: $color-bright-grey;
+  // }
 }
 .about__wrapper {
 }
@@ -10,6 +12,7 @@
 .about__title {
   @extend %title-100;
 
+  // line-height: 1.2;
   margin: auto;
   max-width: 126rem;
   text-align: center;

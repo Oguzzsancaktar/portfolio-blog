@@ -7,6 +7,9 @@
 html {
   @extend %cover;
 
+  background: $color-contessa;
+  colot: $color-quarter-spanish-white;
+
   $vw: 100vw;
   font-size: calc($vw / 1920px * 10px);
   position: fixed;
@@ -41,7 +44,13 @@ button {
 }
 
 img {
+  opacity: 0;
+  transition: opacity 0.5s ease;
   vertical-align: middle;
+
+  &.loaded {
+    opacity: 1;
+  }
 }
 
 .content {

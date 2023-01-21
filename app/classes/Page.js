@@ -10,6 +10,8 @@ import { map } from 'lodash'
 import Paragraph from '../animations/Paragraph'
 import Label from '../animations/Label'
 import Highlight from '../animations/Highlight'
+import { ColorManager } from './Colors'
+import AsyncLoad from './AsyncLoad'
 
 export default class Page {
   constructor ({ element, elements, id }) {
@@ -20,7 +22,9 @@ export default class Page {
       animationsHighlights: '[data-animation="highlight"]',
       animationsTitles: '[data-animation="title"]',
       animationsParagraphs: '[data-animation="paragraph"]',
-      animationsLabels: '[data-animation="label"]'
+      animationsLabels: '[data-animation="label"]',
+
+      preloaders: '[data-src]'
 
     }
     this.id = id
@@ -56,6 +60,7 @@ export default class Page {
     })
 
     this.createAnimations()
+    this.createPreloader()
   }
 
   createAnimations () {
@@ -86,8 +91,21 @@ export default class Page {
     this.animations.push(...this.animationsHighlights)
   }
 
+  createPreloader () {
+    this.preloaders = map(this.elements.preloaders, element => {
+      return new AsyncLoad({ element })
+    })
+  }
+
+  // animations
+
   show () {
     return new Promise(resolve => {
+      ColorManager.change({
+        backgroundColor: this.element.getAttribute('data-background'),
+        color: this.element.getAttribute('data-color')
+      })
+
       this.animationIn = GSAP.timeline()
 
       this.animationIn.fromTo(this.element,
@@ -109,6 +127,8 @@ export default class Page {
 
   hide () {
     return new Promise(resolve => {
+      this.destroy()
+
       this.animationOut = GSAP.timeline()
 
       this.animationOut.to(this.element, {
@@ -123,6 +143,13 @@ export default class Page {
     })
   }
 
+  // events
+  onMouseWheel (event) {
+    const { pixelY } = normalizeWheel(event)
+
+    this.scroll.target += pixelY
+  }
+
   onResize () {
     if (this.elements?.wrapper) {
       this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
@@ -131,11 +158,7 @@ export default class Page {
     each(this.animations, animation => animation.onResize())
   }
 
-  onMouseWheel (event) {
-    const { pixelY } = normalizeWheel(event)
-
-    this.scroll.target += pixelY
-  }
+  // loops
 
   update () {
     this.scroll.target = GSAP.utils.clamp(0, this.scroll.limit, this.scroll.target)
@@ -151,11 +174,19 @@ export default class Page {
     }
   }
 
+  // listeners
+
   addEventListeners () {
     window.addEventListener('wheel', this.onMouseWheel)
   }
 
   removeEventListeners () {
     window.removeEventListener('wheel', this.onMouseWheel)
+  }
+
+  // destroy
+
+  destroy () {
+    this.removeEventListeners()
   }
 }

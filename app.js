@@ -24,6 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Link Resolver
 const HandleLinkResolver = (doc) => {
+  if (doc === '/') {
+    return '/'
+  }
+
   if (doc.type === 'product') {
     return `/detail/${doc.slug}`
   }
@@ -81,8 +85,6 @@ app.get('/', async (req, res) => {
 app.get('/about', async (req, res) => {
   const defaults = await handleRequest(req, res)
   const about = await client.getSingle('about')
-
-  console.log(about.data.body)
 
   res.render('pages/about', { ...defaults, about })
 })

@@ -1,20 +1,31 @@
 .navigation {
   @extend %cover;
 
-  color: $color-white;
+  color: $color-quarter-spanish-white;
   z-index: z("navigation");
   position: fixed;
   pointer-events: none;
 }
 
 .navigation__link {
+  // @extend %link--hidden;
+
   font-size: 0;
   position: absolute;
   left: 4rem;
   top: 4rem;
+  transition: opacity 0.4s ease;
   width: 12.8rem;
   pointer-events: auto;
-  height: 2rem;
+  height: 4rem;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  svg {
+    pointer-events: none;
+  }
 
   @include media("<phone") {
     left: 5rem;
@@ -36,7 +47,9 @@
   pointer-events: auto;
 }
 .navigation__list__link {
+  @extend %link--hidden;
   @extend %title-20;
 
   display: block;
+  line-height: 1;
 }
