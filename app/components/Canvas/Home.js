@@ -1,9 +1,10 @@
-import map from 'lodash/map'
-import Media from './Media'
+import { Plane, Transform } from 'ogl'
 
 import GSAP from 'gsap'
 
-import { Plane, Transform } from 'ogl'
+import map from 'lodash/map'
+
+import Media from './Media'
 
 export default class {
   constructor ({ gl, scene, sizes }) {
@@ -12,7 +13,9 @@ export default class {
 
     this.group = new Transform()
 
-    this.mediaElements = document.querySelectorAll('.home__gallery__media__image')
+    this.mediasElements = document.querySelectorAll(
+      '.home__gallery__media__image'
+    )
 
     this.createGeometry()
     this.createGallery()
@@ -25,15 +28,15 @@ export default class {
       lerp: 0.1
     }
 
-    this.scrollCurrent = {
-      x: 0,
-      y: 0
-    }
-
     this.y = {
       current: 0,
       target: 0,
       lerp: 0.1
+    }
+
+    this.scrollCurrent = {
+      x: 0,
+      y: 0
     }
 
     this.scroll = {
@@ -47,7 +50,7 @@ export default class {
   }
 
   createGallery () {
-    this.medias = map(this.mediaElements, (element, index) => {
+    this.medias = map(this.mediasElements, (element, index) => {
       return new Media({
         element,
         geometry: this.geometry,
@@ -61,8 +64,8 @@ export default class {
 
   // Events
 
-  onResize (event) {
-    map(this.medias, media => media.onResize(event))
+  onResize (e) {
+    map(this.medias, (media) => media.onResize(e))
   }
 
   onTouchDown ({ x, y }) {
@@ -76,20 +79,28 @@ export default class {
 
     this.x.target = this.scrollCurrent.x - xDistance
     this.y.target = this.scrollCurrent.y - yDistance
-
-    console.log(xDistance, yDistance)
   }
 
-  onTouchUp ({ x, y }) { }
+  onTouchUp ({ x, y }) {}
+
+  // Update
 
   update () {
-    this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
-    this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
+    this.x.current = GSAP.utils.interpolate(
+      this.x.current,
+      this.x.target,
+      this.x.lerp
+    )
+    this.y.current = GSAP.utils.interpolate(
+      this.y.current,
+      this.y.target,
+      this.y.lerp
+    )
 
     this.scroll.x = this.x.current
     this.scroll.y = this.y.current
 
-    map(this.medias, media => {
+    map(this.medias, (media) => {
       media.update(this.scroll)
     })
   }

@@ -22,6 +22,10 @@
 
 /*! ../../classes/Page */
 
+/*! ../../shaders/plane-fragment.glsl */
+
+/*! ../../shaders/plane-vertex.glsl */
+
 /*! ../animations/Highlight */
 
 /*! ../animations/Label */
@@ -419,10 +423,6 @@
 /*! pages/home */
 
 /*! prefix */
-
-/*! shaders/plane-fragment.glsl */
-
-/*! shaders/plane-vertex.glsl */
 
 /*! tapable/lib/SyncBailHook */
 
