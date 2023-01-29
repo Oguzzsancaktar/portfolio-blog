@@ -1,5 +1,6 @@
 import { each } from 'lodash'
 import About from 'pages/about'
+import Canvas from 'components/Canvas'
 import Collections from 'pages/collections'
 import Detail from 'pages/detail'
 import Home from 'pages/home'
@@ -12,6 +13,7 @@ class App {
 
     this.createNavigation()
     this.createPreloader()
+    this.createCanvas()
     this.createPages()
 
     this.addEventListeners()
@@ -26,10 +28,13 @@ class App {
     })
   }
 
-  // events
   createPreloader () {
     this.preloader = new Preloader()
     this.preloader.once('completed', this.onPreloaded.bind(this))
+  }
+
+  createCanvas () {
+    this.canvas = new Canvas()
   }
 
   createContent () {
@@ -50,6 +55,8 @@ class App {
     this.page.create()
   }
 
+  // events
+
   onPreloaded () {
     this.preloader.destroy()
 
@@ -59,11 +66,12 @@ class App {
   }
 
   async onChange (url) {
-    console.log('url', url)
     await this.page.hide()
-    const res = await window.fetch(url)
-    if (res.status === 200) {
-      const html = await res.text()
+
+    const request = await window.fetch(url)
+
+    if (request.status === 200) {
+      const html = await request.text()
       const div = document.createElement('div')
 
       div.innerHTML = html
@@ -85,11 +93,15 @@ class App {
 
       this.addLinkListeners()
     } else {
-      console.error(`response status: ${res.status}`)
+      console.error(`response status: ${request.status}`)
     }
   }
 
   onResize () {
+    if (this.canvas && this.canvas.onResize) {
+      this.canvas.onResize()
+    }
+
     if (this.page && this.page.onResize) {
       this.page.onResize()
     }
@@ -97,6 +109,10 @@ class App {
 
   // loop
   update () {
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update()
+    }
+
     if (this.page && this.page.update) {
       this.page.update()
     }
