@@ -1,14 +1,28 @@
-import { Camera, Renderer, Transform, Box, Program, Mesh } from 'ogl'
+import { Camera, Renderer, Transform } from 'ogl'
 
-import vertex from 'shaders/plane-vertex.glsl'
-import fragment from 'shaders/plane-fragment.glsl'
+import Home from './Home'
 
 export default class Canvas {
   constructor () {
+    this.x = {
+      start: 0,
+      distance: 0,
+      end: 0
+    }
+
+    this.y = {
+      start: 0,
+      distance: 0,
+      end: 0
+    }
+
     this.createRenderer()
     this.createCamera()
     this.createScene()
-    this.createCube()
+
+    this.onResize()
+
+    this.createHome()
   }
 
   createRenderer () {
@@ -28,29 +42,83 @@ export default class Canvas {
     this.scene = new Transform()
   }
 
-  createCube () {
-    this.geometry = new Box(this.gl)
-
-    this.program = new Program(this.gl, {
-      vertex,
-      fragment
+  createHome () {
+    this.home = new Home({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes
     })
-
-    this.mesh = new Mesh(this.gl, { geometry: this.geometry, program: this.program })
-    this.mesh.setParent(this.scene)
   }
 
+  // EVENTS
   onResize () {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
 
     this.camera.perspective({
       aspect: this.gl.canvas.width / this.gl.canvas.height
     })
+
+    const fov = this.camera.fov * (Math.PI / 180)
+    const height = 2 * Math.tan(fov / 2) * this.camera.position.z
+    const width = height * this.camera.aspect
+
+    this.sizes = {
+      width,
+      height
+    }
+
+    if (this.home) {
+      this.home.onResize({ sizes: this.sizes })
+    }
   }
 
+  onTouchDown (event) {
+    this.isDown = true
+
+    const x = event.touches ? event.touches[0].clientX : event.clientX
+    const y = event.touches ? event.touches[0].clientY : event.clientY
+
+    if (this.home) {
+      this.home.onTouchDown({ x, y })
+    }
+  }
+
+  onTouchMove (event) {
+    if (!this.isDown) return
+
+    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
+    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
+
+    // this.x.distance = this.x.start - this.x.end
+    // this.y.distance = this.y.start - this.y.end
+
+    if (this.home) {
+      this.home.onTouchMove({ x: this.x, y: this.y })
+    }
+  }
+
+  onTouchUp (event) {
+    this.isDown = false
+
+    const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
+    const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY
+
+    this.x.end = x
+    this.y.end = y
+
+    // this.x.distance = this.x.start - this.x.end
+    // this.y.distance = this.y.start - this.y.end
+
+    if (this.home) {
+      this.home.onTouchUp({ x: this.x, y: this.y })
+    }
+  }
+
+  // LOOP
   update () {
-    this.mesh.rotation.x += 0.01
-    this.mesh.rotation.y += 0.01
+    if (this.home && this.home.update) {
+      this.home.update()
+    }
 
     this.renderer.render({ scene: this.scene, camera: this.camera })
   }
