@@ -1,8 +1,10 @@
 .about__gallery {
   height: 70.6rem;
+  pointer-events: none;
   position: relative;
   margin: 0 auto;
   overflow: hidden;
+  visibility: hidden;
 
   &:first-child {
     margin-bottom: 0;
