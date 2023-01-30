@@ -26,7 +26,10 @@ export default class Canvas {
   }
 
   createRenderer () {
-    this.renderer = new Renderer()
+    this.renderer = new Renderer({
+      alpha: true,
+      antialias: true
+    })
 
     this.gl = this.renderer.gl
 
@@ -76,11 +79,11 @@ export default class Canvas {
     }
   }
 
-  onTouchDown (e) {
+  onTouchDown (event) {
     this.isDown = true
 
-    this.x.start = e.touches ? e.touches[0].clientX : e.clientX
-    this.y.start = e.touches ? e.touches[0].clientY : e.clientY
+    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
+    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
 
     if (this.home) {
       this.home.onTouchDown({
@@ -90,11 +93,11 @@ export default class Canvas {
     }
   }
 
-  onTouchMove (e) {
+  onTouchMove (event) {
     if (!this.isDown) return
 
-    const x = e.touches ? e.touches[0].clientX : e.clientX
-    const y = e.touches ? e.touches[0].clientY : e.clientY
+    const x = event.touches ? event.touches[0].clientX : event.clientX
+    const y = event.touches ? event.touches[0].clientY : event.clientY
 
     this.x.end = x
     this.y.end = y
@@ -107,11 +110,11 @@ export default class Canvas {
     }
   }
 
-  onTouchUp (e) {
+  onTouchUp (event) {
     this.isDown = false
 
-    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX
-    const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY
+    const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
+    const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY
 
     this.x.end = x
     this.y.end = y
@@ -121,6 +124,12 @@ export default class Canvas {
         x: this.x,
         y: this.y
       })
+    }
+  }
+
+  onWheel (event) {
+    if (this.home) {
+      this.home.onWheel(event)
     }
   }
 
