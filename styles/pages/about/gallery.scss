@@ -1,8 +1,8 @@
 .about__gallery {
-  height: 70.6rem;
+  height: 58.6rem;
   pointer-events: none;
   position: relative;
-  margin: 0 auto;
+  margin: 15rem auto;
   overflow: hidden;
   visibility: hidden;
 
@@ -22,10 +22,10 @@
   transform: translateY(-50%);
 }
 .about__gallery__media {
-  position: relative;
   height: 43.7rem;
-  width: 40.9rem;
   margin: 0 4rem;
+  position: relative;
+  width: 30.9rem;
 }
 .about__gallery__media__image {
   @extend %cover;

@@ -72,8 +72,8 @@ export default class {
 
   // Update
 
-  update () {
-    map(this.galeries, gallery => gallery.update())
+  update (scroll) {
+    map(this.galeries, gallery => gallery.update(scroll))
   }
 
   // Deastroy.

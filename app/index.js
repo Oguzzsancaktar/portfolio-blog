@@ -147,13 +147,14 @@ class App {
 
   // loop
   update () {
-    if (this.canvas && this.canvas.update) {
-      this.canvas.update()
-    }
-
     if (this.page && this.page.update) {
       this.page.update()
     }
+
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update(this.page.scroll)
+    }
+
     this.frame = window.requestAnimationFrame(this.update.bind(this))
   }
 
@@ -175,11 +176,12 @@ class App {
   addLinkListeners () {
     const links = document.querySelectorAll('a')
 
-    each(links, link => {
+    each(links, (link) => {
       link.onclick = (event) => {
-        console.log('event'
-          , event)
-        const { target: { href } } = event
+        console.log('event', event)
+        const {
+          target: { href }
+        } = event
         event.preventDefault()
         this.onChange(href)
       }
