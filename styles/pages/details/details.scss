@@ -157,4 +157,9 @@
 
 .detail__button__icon {
   @extend %cover;
+
+  pointer-events: none;
+  path {
+    pointer-events: none;
+  }
 }

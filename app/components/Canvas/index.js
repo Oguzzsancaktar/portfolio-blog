@@ -1,6 +1,7 @@
 import { Camera, Renderer, Transform } from 'ogl'
 
 import About from '../Canvas/About'
+import Collections from '../Canvas/Collections'
 import Home from '../Canvas/Home'
 export default class Canvas {
   constructor ({ template }) {
@@ -48,6 +49,7 @@ export default class Canvas {
     this.scene = new Transform()
   }
 
+  // Home.
   createHome () {
     this.home = new Home({
       gl: this.gl,
@@ -62,6 +64,7 @@ export default class Canvas {
     this.home = null
   }
 
+  // About.
   createAbout () {
     this.about = new About({
       gl: this.gl,
@@ -76,6 +79,21 @@ export default class Canvas {
     this.about = null
   }
 
+  // Collections.
+  createCollections () {
+    this.collections = new Collections({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes
+    })
+  }
+
+  destroyCollections () {
+    if (!this.collections) return
+    this.collections.destroy()
+    this.collections = null
+  }
+
   // Events
 
   onChangeStart () {
@@ -83,26 +101,28 @@ export default class Canvas {
       this.about.hide()
     }
 
+    if (this.collections) {
+      this.collections.hide()
+    }
+
     if (this.home) {
       this.home.hide()
     }
   }
 
-  // onChangeEnd () {
-  //   if (this.about) {
-  //     this.about.show()
-  //   }
-
-  //   if (this.home) {
-  //     this.home.show()
-  //   }
-  // }
-
   onChangeEnd (template) {
     if (template === 'about') {
       this.createAbout()
-    } else {
+    } else if (this.about) {
       this.destroyAbout()
+    }
+
+    if (template === 'collections') {
+      this.gl.canvas.style.zIndex = 1000
+      this.createCollections()
+    } else if (this.collections) {
+      this.gl.canvas.style.zIndex = ''
+      this.destroyCollections()
     }
 
     if (template === 'home') {
@@ -136,6 +156,10 @@ export default class Canvas {
       this.about.onResize(values)
     }
 
+    if (this.collections) {
+      this.collections.onResize(values)
+    }
+
     if (this.home) {
       this.home.onResize(values)
     }
@@ -151,8 +175,13 @@ export default class Canvas {
       x: this.x,
       y: this.y
     }
+
     if (this.about) {
       this.about.onTouchDown(values)
+    }
+
+    if (this.collections) {
+      this.collections.onTouchDown(values)
     }
 
     if (this.home) {
@@ -176,6 +205,10 @@ export default class Canvas {
 
     if (this.about) {
       this.about.onTouchMove(values)
+    }
+
+    if (this.collections) {
+      this.collections.onTouchMove(values)
     }
 
     if (this.home) {
@@ -207,6 +240,10 @@ export default class Canvas {
   }
 
   onWheel (event) {
+    if (this.collections) {
+      this.collections.onWheel(event)
+    }
+
     if (this.home) {
       this.home.onWheel(event)
     }
@@ -217,6 +254,10 @@ export default class Canvas {
   update (scroll) {
     if (this.about) {
       this.about.update(scroll)
+    }
+
+    if (this.collections) {
+      this.collections.update()
     }
 
     if (this.home) {

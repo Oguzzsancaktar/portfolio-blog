@@ -76,6 +76,7 @@ class App {
 
     if (request.status === 200) {
       const html = await request.text()
+
       const div = document.createElement('div')
 
       div.innerHTML = html
@@ -178,7 +179,6 @@ class App {
 
     each(links, (link) => {
       link.onclick = (event) => {
-        console.log('event', event)
         const {
           target: { href }
         } = event

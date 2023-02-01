@@ -103,11 +103,13 @@ app.get('/collections', async (req, res) => {
 
 app.get('/detail/:uid', async (req, res) => {
   const defaults = await handleRequest(req, res)
+  const home = await client.getSingle('home')
+
   const product = await client.getByUID('product', req.params.uid, {
     fetchLinks: ['collection.title']
   })
 
-  res.render('pages/detail', { ...defaults, product })
+  res.render('pages/detail', { ...defaults, product, home })
 })
 
-app.listen(port, () => console.log(`Example app l istening on port ${port}!`))
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))

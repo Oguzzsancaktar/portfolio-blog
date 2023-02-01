@@ -12,12 +12,21 @@ block content
           .collections__titles__label!=`${home.data.collection}<br>${ctx.Numbers(index)}`
           .collections__titles__title=collection.data.title
 
+        each collection, index in collections
+          .collections__titles__label!=`${home.data.collection}<br>${ctx.Numbers(index)}`
+          .collections__titles__title=collection.data.title
+
+
+        each collection, index in collections
+          .collections__titles__label!=`${home.data.collection}<br>${ctx.Numbers(index)}`
+          .collections__titles__title=collection.data.title
+
       .collections__gallery
         .collections__gallery__wrapper
-          each collection in collections
+          each collection, index in collections
             each product in collection.data.products
-              a.collections__gallery__link(href=ctx.Link(product.products_product))
-                figure.collections__gallery__media
+              a.collections__gallery__link( href=ctx.Link(product.products_product))
+                figure.collections__gallery__media(data-index=index)
                   img.collections__gallery__media__image(data-src=product.products_product.data.image.url alt=product.products_product.data.image.alt)
 
       .collections__content
@@ -31,3 +40,5 @@ block content
           .collections__mobile__item
             .collections__mobile__item__label!=`${home.data.collection}<br>${ctx.Numbers(index)}`
             .collections__mobile__item__title=collection.data.title
+
+      //- button.collections__button Redirect User
