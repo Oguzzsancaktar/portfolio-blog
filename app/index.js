@@ -13,10 +13,8 @@ class App {
     this.createContent()
 
     this.createCanvas()
-
     this.createPreloader()
     this.createNavigation()
-
     this.createPages()
 
     this.addEventListeners()
@@ -60,7 +58,6 @@ class App {
     }
 
     this.page = this.pages[this.template]
-
     this.page.create()
   }
 
@@ -68,23 +65,22 @@ class App {
 
   onPreloaded () {
     this.onResize()
-
     this.canvas.onPreloaded()
-
     this.page.show()
   }
 
   async onChange (url) {
     this.canvas.onChangeStart(this.template)
+
     await this.page.hide()
 
     const request = await window.fetch(url)
 
     if (request.status === 200) {
       const html = await request.text()
-
       const div = document.createElement('div')
 
+      window.history.pushState({}, '', url)
       div.innerHTML = html
 
       const divContent = div.querySelector('.content')
@@ -102,6 +98,7 @@ class App {
       this.page.create()
 
       this.onResize()
+
       this.page.show()
 
       this.addLinkListeners()
@@ -111,13 +108,13 @@ class App {
   }
 
   onResize () {
-    if (this.canvas && this.canvas.onResize) {
-      this.canvas.onResize()
+    if (this.page && this.page.onResize) {
+      this.page.onResize()
     }
 
-    window.requestAnimationFrame(() => {
-      if (this.page && this.page.onResize) {
-        this.page.onResize()
+    window.requestAnimationFrame((_) => {
+      if (this.canvas && this.canvas.onResize) {
+        this.canvas.onResize()
       }
     })
   }
