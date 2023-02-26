@@ -44,11 +44,16 @@ const HandleLinkResolver = (doc) => {
 app.use((req, res, next) => {
   res.locals.ctx = {
     prismicH,
-    Numbers: index => {
-      return index === 0 ? 'One' : index === 1 ? 'Two' : index === 2 ? 'Three' : 'Four'
+    Numbers: (index) => {
+      return index === 0
+        ? 'One'
+        : index === 1
+          ? 'Two'
+          : index === 2
+            ? 'Three'
+            : 'Four'
     },
     Link: HandleLinkResolver
-
   }
   next()
 })
@@ -59,11 +64,46 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 const handleRequest = async (req, res) => {
+  const about = await client.getSingle('about')
+  const home = await client.getSingle('home')
   const metadata = await client.getSingle('metadata')
   const preloader = await client.getSingle('preloader')
   const navigation = await client.getSingle('navigation')
 
+  const { results: collections } = await client.get({
+    predicates: prismic.predicates.at('document.type', 'collection'),
+    fetchLinks: 'product.image'
+  })
+
+  const assets = []
+
+  home.data.gallery.forEach((item) => {
+    assets.push(item.image.url)
+  })
+
+  about.data.gallery.forEach((item) => {
+    assets.push(item.image.url)
+  })
+
+  about.data.body.forEach((section) => {
+    if (section.slice_type === 'gallery') {
+      section.items.forEach((item) => {
+        assets.push(item.image.url)
+      })
+    }
+  })
+
+  collections.forEach((collection) => {
+    collection.data.products.forEach((product) => {
+      assets.push(product.products_product.data.image.url)
+    })
+  })
+
   return {
+    assets,
+    about,
+    home,
+    collections,
     metadata,
     preloader,
     navigation
@@ -72,44 +112,30 @@ const handleRequest = async (req, res) => {
 
 app.get('/', async (req, res) => {
   const defaults = await handleRequest(req, res)
-  const home = await client.getSingle('home')
 
-  const { results: collections } = await client.get({
-    predicates: prismic.predicates.at('document.type', 'collection'),
-    fetchLinks: 'product.image'
-  })
-
-  res.render('pages/home', { ...defaults, home, collections })
+  res.render('pages/home', { ...defaults })
 })
 
 app.get('/about', async (req, res) => {
   const defaults = await handleRequest(req, res)
-  const about = await client.getSingle('about')
 
-  res.render('pages/about', { ...defaults, about })
+  res.render('pages/about', { ...defaults })
 })
 
 app.get('/collections', async (req, res) => {
   const defaults = await handleRequest(req, res)
-  const home = await client.getSingle('home')
 
-  const { results: collections } = await client.get({
-    predicates: prismic.predicates.at('document.type', 'collection'),
-    fetchLinks: 'product.image'
-  })
-
-  res.render('pages/collections', { ...defaults, home, collections })
+  res.render('pages/collections', { ...defaults })
 })
 
 app.get('/detail/:uid', async (req, res) => {
   const defaults = await handleRequest(req, res)
-  const home = await client.getSingle('home')
 
   const product = await client.getByUID('product', req.params.uid, {
     fetchLinks: ['collection.title']
   })
 
-  res.render('pages/detail', { ...defaults, product, home })
+  res.render('pages/detail', { ...defaults, product })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
