@@ -1,6 +1,5 @@
 import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
-
 import Prefix from 'prefix'
 
 import map from 'lodash/map'
@@ -67,40 +66,48 @@ export default class {
     })
   }
 
-  // Animations
-
-  show () {
+  /**
+   * Animations.
+   */
+  async show () {
     if (this.transition) {
-      this.transition.animate(this.medias[0].mesh, () => {
-      })
-    }
+      const { src } = this.transition.mesh.program.uniforms.tMap.value.image
+      const texture = window.TEXTURES[src]
+      const media = this.medias.find((media) => media.texture === texture)
+      const scroll = -media.bounds.left - media.bounds.width / 2 + window.innerWidth / 2
 
-    map(this.medias, media => media.show())
+      this.update()
+
+      this.transition.animate(
+        {
+          position: { x: 0, y: media.mesh.position.y, z: 0 },
+          rotation: media.mesh.rotation,
+          scale: media.mesh.scale
+        },
+        (_) => {
+          media.opacity.multiplier = 1
+
+          map(this.medias, (item) => {
+            if (media !== item) {
+              item.show()
+            }
+          })
+
+          this.scroll.current = this.scroll.target = this.scroll.start = this.scroll.last = scroll
+        }
+      )
+    } else {
+      map(this.medias, (media) => media.show())
+    }
   }
 
   hide () {
-    map(this.medias, media => media.hide())
+    map(this.medias, (media) => media.hide())
   }
 
-  // Chanaged.
-  onChange (index) {
-    this.index = index
-
-    const selectedCollection = parseInt(this.mediasElements[this.index].getAttribute('data-index'))
-
-    map(this.collectionsElements, (element, elementIndex) => {
-      if (elementIndex === selectedCollection) {
-        element.classList.add(this.collectionsElementsActive)
-      } else {
-        element.classList.remove(this.collectionsElementsActive)
-      }
-    })
-
-    this.titlesElement.style[this.transformPrefix] = `translateY(-${25 * selectedCollection}%) translate(-50%, -50%) rotate(-90deg) `
-  }
-
-  // Events
-
+  /**
+   * Events.
+   */
   onResize (event) {
     this.sizes = event.sizes
 
@@ -123,20 +130,50 @@ export default class {
     this.scroll.target = this.scroll.last - distance
   }
 
-  onTouchUp ({ x, y }) { }
+  onTouchUp ({ x, y }) {}
 
   onWheel ({ pixelY }) {
     this.scroll.target += pixelY
   }
 
-  // Update
+  /**
+   * Changed.
+   */
+  onChange (index) {
+    this.index = index
 
+    const selectedCollection = parseInt(this.mediasElements[this.index].getAttribute('data-index'))
+
+    map(this.collectionsElements, (element, elementIndex) => {
+      if (elementIndex === selectedCollection) {
+        element.classList.add(this.collectionsElementsActive)
+      } else {
+        element.classList.remove(this.collectionsElementsActive)
+      }
+    })
+
+    this.titlesElement.style[this.transformPrefix] = `translateY(-${25 * selectedCollection}%) translate(-50%, -50%) rotate(-90deg)`
+  }
+
+  /**
+   * Update.
+   */
   update () {
-    this.scroll.target = GSAP.utils.clamp(-this.scroll.limit + this.sizes.width, 0, this.scroll.target)
+    this.scroll.target = GSAP.utils.clamp(
+      -this.scroll.limit,
+      0,
+      this.scroll.target
+    )
 
-    this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp)
+    this.scroll.current = GSAP.utils.interpolate(
+      this.scroll.current,
+      this.scroll.target,
+      this.scroll.lerp
+    )
 
-    this.galleryElement.style[this.transformPrefix] = `translateX(${this.scroll.current}px)`
+    this.galleryElement.style[
+      this.transformPrefix
+    ] = `translateX(${this.scroll.current}px)`
 
     if (this.scroll.last < this.scroll.current) {
       this.scroll.direction = 'right'
@@ -146,7 +183,7 @@ export default class {
 
     this.scroll.last = this.scroll.current
 
-    const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length)
+    const index = Math.floor(Math.abs((this.scroll.current - this.medias[0].bounds.width / 2) / this.scroll.limit) * (this.medias.length - 1))
 
     if (this.index !== index) {
       this.onChange(index)
@@ -154,13 +191,15 @@ export default class {
 
     map(this.medias, (media, index) => {
       media.update(this.scroll.current, this.index)
+      media.mesh.rotation.z = Math.abs(GSAP.utils.mapRange(0, 1, -0.2, 0.2, index / (this.medias.length - 1))) - 0.1
 
       media.mesh.position.y += Math.cos((media.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 - 40
     })
   }
 
-  // Destroy.
-
+  /**
+   * Destroy.
+   */
   destroy () {
     this.scene.removeChild(this.group)
   }

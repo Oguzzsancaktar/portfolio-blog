@@ -1,7 +1,8 @@
-import { Mesh, Plane, Program } from 'ogl'
 import GSAP from 'gsap'
-import vertex from '../../../shaders/plane-vertex.glsl'
-import fragment from '../../../shaders/plane-fragment.glsl'
+import { Mesh, Plane, Program } from 'ogl'
+
+import fragment from 'shaders/plane-fragment.glsl'
+import vertex from 'shaders/plane-vertex.glsl'
 
 export default class {
   constructor ({ gl, scene, sizes, transition }) {
@@ -19,13 +20,16 @@ export default class {
     this.createTexture()
     this.createProgram()
     this.createMesh()
+    this.createBounds({
+      sizes: this.sizes
+    })
 
-    this.createBounds({ sizes: this.sizes })
     this.show()
   }
 
   createTexture () {
     const image = this.element.getAttribute('data-src')
+
     this.texture = window.TEXTURES[image]
   }
 
@@ -34,7 +38,7 @@ export default class {
       fragment,
       vertex,
       uniforms: {
-        uAlpha: { value: 1 },
+        uAlpha: { value: 0 },
         tMap: { value: this.texture }
       }
     })
@@ -46,13 +50,14 @@ export default class {
       program: this.program
     })
 
-    this.mesh.setParent(this.scene)
+    this.mesh.rotation.z = Math.PI * 0.01
 
-    // this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
+    this.mesh.setParent(this.scene)
   }
 
   createBounds ({ sizes }) {
     this.sizes = sizes
+
     this.bounds = this.element.getBoundingClientRect()
 
     this.updateScale()
@@ -60,11 +65,12 @@ export default class {
     this.updateY()
   }
 
-  // Animations.
-
+  /**
+   * Animations.
+   */
   show () {
     if (this.transition) {
-      this.transition.animate(this.mesh, () => {
+      this.transition.animate(this.mesh, (_) => {
         this.program.uniforms.uAlpha.value = 1
       })
     } else {
@@ -75,12 +81,15 @@ export default class {
   }
 
   hide () {
-
+    GSAP.to(this.program.uniforms.uAlpha, {
+      value: 0
+    })
   }
 
-  // Events
-
-  onResize (sizes, scroll) {
+  /**
+   * Events.
+   */
+  onResize (sizes) {
     this.createBounds(sizes)
     this.updateX()
     this.updateY()
@@ -92,8 +101,9 @@ export default class {
 
   onTouchUp () {}
 
-  // Loop.
-
+  /**
+   * Loop.
+   */
   updateScale () {
     this.height = this.bounds.height / window.innerHeight
     this.width = this.bounds.width / window.innerWidth
@@ -103,24 +113,28 @@ export default class {
   }
 
   updateX () {
-    this.x = (this.bounds.left) / window.innerWidth
+    this.x = this.bounds.left / window.innerWidth
 
-    this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width)
+    this.mesh.position.x =
+      -this.sizes.width / 2 + this.mesh.scale.x / 2 + this.x * this.sizes.width
   }
 
   updateY () {
-    this.y = (this.bounds.top) / window.innerHeight
+    this.y = this.bounds.top / window.innerHeight
 
-    this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height)
+    this.mesh.position.y =
+      this.sizes.height / 2 -
+      this.mesh.scale.y / 2 -
+      this.y * this.sizes.height
   }
 
   update () {
     this.updateX()
-    this.updateY()
   }
 
-  // Destroy.
-
+  /**
+   * Destroy.
+   */
   destroy () {
     this.scene.removeChild(this.mesh)
   }

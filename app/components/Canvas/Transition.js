@@ -1,13 +1,12 @@
-import { Mesh, Program, Plane } from 'ogl'
 import GSAP from 'gsap'
-import vertex from '../../shaders/plane-vertex.glsl'
-import fragment from '../../shaders/plane-fragment.glsl'
+import { Mesh, Plane, Program } from 'ogl'
+
+import fragment from 'shaders/plane-fragment.glsl'
+import vertex from 'shaders/plane-vertex.glsl'
 
 export default class {
-  constructor ({ collections, details, gl, scene, sizes, url }) {
+  constructor ({ collections, gl, scene, sizes, url }) {
     this.collections = collections
-    this.details = details
-
     this.gl = gl
     this.scene = scene
     this.sizes = sizes
@@ -41,11 +40,19 @@ export default class {
     this.mesh.position.y = mesh.position.y
     this.mesh.position.z = mesh.position.z + 0.01
 
+    this.mesh.rotation.x = mesh.rotation.x
+    this.mesh.rotation.y = mesh.rotation.y
+    this.mesh.rotation.z = mesh.rotation.z
+
     this.mesh.setParent(this.scene)
   }
 
-  // Element.
+  /**
+   * Element.
+   */
   setElement (element) {
+    console.log(element.id)
+
     if (element.id === 'collections') {
       const { index, medias } = element
       const media = medias[index]
@@ -62,30 +69,54 @@ export default class {
     }
   }
 
-  // Animations.
+  /**
+   * Animations.
+   */
   animate (element, onComplete) {
-    const timeline = GSAP.timeline({
-      onComplete
+    const timeline = GSAP.timeline({})
+
+    timeline.to(
+      this.mesh.scale,
+      {
+        duration: 1.5,
+        ease: 'expo.inOut',
+        x: element.scale.x,
+        y: element.scale.y,
+        z: element.scale.z
+      },
+      0
+    )
+
+    timeline.to(
+      this.mesh.position,
+      {
+        duration: 1.5,
+        ease: 'expo.inOut',
+        x: element.position.x,
+        y: element.position.y,
+        z: element.position.z
+      },
+      0
+    )
+
+    timeline.to(
+      this.mesh.rotation,
+      {
+        duration: 1.5,
+        ease: 'expo.inOut',
+        x: element.rotation.x,
+        y: element.rotation.y,
+        z: element.rotation.z
+      },
+      0
+    )
+
+    timeline.call((_) => {
+      onComplete()
     })
 
-    timeline.to(this.mesh.scale, {
-      duration: 1.5,
-      ease: 'expo.inOut',
-      x: element.scale.x,
-      y: element.scale.y,
-      z: element.scale.z
-    }, 0)
-
-    timeline.to(this.mesh.position, {
-      duration: 1.5,
-      ease: 'expo.inOut',
-      x: element.position.x,
-      y: element.position.y,
-      z: element.position.z
-    }, 0)
-
-    timeline.call(() => {
+    timeline.call((_) => {
       this.scene.removeChild(this.mesh)
-    })
+    }, null, '+=0.2') // prettier-ignore
   }
 }

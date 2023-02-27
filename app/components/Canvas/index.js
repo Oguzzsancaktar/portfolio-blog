@@ -1,8 +1,10 @@
 import { Camera, Renderer, Transform } from 'ogl'
-import About from '../Canvas/About'
-import Collections from '../Canvas/Collections'
-import Detail from '../Canvas/Detail'
-import Home from '../Canvas/Home'
+
+import About from './About'
+import Collections from './Collections'
+import Detail from './Detail'
+import Home from './Home'
+
 import Transition from './Transition'
 
 export default class Canvas {
@@ -49,7 +51,7 @@ export default class Canvas {
     this.scene = new Transform()
   }
 
-  // Home.
+  //   Home
   createHome () {
     this.home = new Home({
       gl: this.gl,
@@ -60,11 +62,12 @@ export default class Canvas {
 
   destroyHome () {
     if (!this.home) return
+
     this.home.destroy()
     this.home = null
   }
 
-  // About.
+  //   About
   createAbout () {
     this.about = new About({
       gl: this.gl,
@@ -75,11 +78,12 @@ export default class Canvas {
 
   destroyAbout () {
     if (!this.about) return
+
     this.about.destroy()
     this.about = null
   }
 
-  // Collections.
+  //   Collections
   createCollections () {
     this.collections = new Collections({
       gl: this.gl,
@@ -91,11 +95,13 @@ export default class Canvas {
 
   destroyCollections () {
     if (!this.collections) return
+
     this.collections.destroy()
     this.collections = null
   }
 
-  // Detail.
+  //   Detail
+
   createDetail () {
     this.detail = new Detail({
       gl: this.gl,
@@ -107,6 +113,7 @@ export default class Canvas {
 
   destroyDetail () {
     if (!this.detail) return
+
     this.detail.destroy()
     this.detail = null
   }
@@ -117,20 +124,24 @@ export default class Canvas {
   }
 
   onChangeStart (template, url) {
-    if (this.about) {
-      this.about.hide()
+    if (this.home) {
+      this.home.hide()
     }
 
     if (this.collections) {
       this.collections.hide()
     }
 
-    if (this.home) {
-      this.home.hide()
+    if (this.detail) {
+      this.detail.hide()
     }
 
-    this.isFromCollectionsToDetail = this.template === 'collections' && url.indexOf('detail') > -1
-    this.isFromDetailToCollections = this.template === 'detail' && url.indexOf('collections') > -1
+    if (this.about) {
+      this.about.hide()
+    }
+
+    this.isFromCollectionsToDetail = this.template === 'collections' && url.indexOf('detail') > -1 // prettier-ignore
+    this.isFromDetailToCollections = this.template === 'detail' && url.indexOf('collections') > -1 // prettier-ignore
 
     if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
       this.transition = new Transition({
@@ -145,16 +156,16 @@ export default class Canvas {
   }
 
   onChangeEnd (template) {
+    if (template === 'home') {
+      this.createHome()
+    } else {
+      this.destroyHome()
+    }
+
     if (template === 'about') {
       this.createAbout()
     } else if (this.about) {
       this.destroyAbout()
-    }
-
-    if (template === 'collections') {
-      this.createCollections()
-    } else if (this.collections) {
-      this.destroyCollections()
     }
 
     if (template === 'detail') {
@@ -163,10 +174,10 @@ export default class Canvas {
       this.destroyDetail()
     }
 
-    if (template === 'home') {
-      this.createHome()
-    } else {
-      this.destroyHome()
+    if (template === 'collections') {
+      this.createCollections()
+    } else if (this.collections) {
+      this.destroyCollections()
     }
 
     this.template = template
@@ -209,11 +220,11 @@ export default class Canvas {
     }
   }
 
-  onTouchDown (event) {
+  onTouchDown (e) {
     this.isDown = true
 
-    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
-    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
+    this.x.start = e.touches ? e.touches[0].clientX : e.clientX
+    this.y.start = e.touches ? e.touches[0].clientY : e.clientY
 
     const values = {
       x: this.x,
@@ -227,6 +238,7 @@ export default class Canvas {
     if (this.collections) {
       this.collections.onTouchDown(values)
     }
+
     if (this.detail) {
       this.detail.onTouchDown(values)
     }
@@ -236,11 +248,11 @@ export default class Canvas {
     }
   }
 
-  onTouchMove (event) {
+  onTouchMove (e) {
     if (!this.isDown) return
 
-    const x = event.touches ? event.touches[0].clientX : event.clientX
-    const y = event.touches ? event.touches[0].clientY : event.clientY
+    const x = e.touches ? e.touches[0].clientX : e.clientX
+    const y = e.touches ? e.touches[0].clientY : e.clientY
 
     this.x.end = x
     this.y.end = y
@@ -267,11 +279,11 @@ export default class Canvas {
     }
   }
 
-  onTouchUp (event) {
+  onTouchUp (e) {
     this.isDown = false
 
-    const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
-    const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY
+    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX
+    const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY
 
     this.x.end = x
     this.y.end = y
@@ -298,13 +310,13 @@ export default class Canvas {
     }
   }
 
-  onWheel (event) {
-    if (this.collections) {
-      this.collections.onWheel(event)
+  onWheel (e) {
+    if (this.home) {
+      this.home.onWheel(e)
     }
 
-    if (this.home) {
-      this.home.onWheel(event)
+    if (this.collections) {
+      this.collections.onWheel(e)
     }
   }
 
