@@ -36,6 +36,7 @@
 .detail__media__image {
   @extend %cover;
 
+  visibility: none;
   object-fit: cover;
 }
 
