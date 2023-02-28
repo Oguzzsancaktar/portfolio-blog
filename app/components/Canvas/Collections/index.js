@@ -191,7 +191,8 @@ export default class {
 
     map(this.medias, (media, index) => {
       media.update(this.scroll.current, this.index)
-      media.mesh.rotation.z = Math.abs(GSAP.utils.mapRange(0, 1, -0.2, 0.2, index / (this.medias.length - 1))) - 0.1
+      // Rotation of the mesh.
+      media.mesh.rotation.z = 0
 
       media.mesh.position.y += Math.cos((media.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 - 40
     })

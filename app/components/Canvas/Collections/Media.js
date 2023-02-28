@@ -45,6 +45,8 @@ export default class {
       vertex,
       uniforms: {
         uAlpha: { value: 0 },
+        uSpeed: { value: 0 },
+        uTime: { value: 0 },
         tMap: { value: this.texture }
       }
     })
@@ -126,10 +128,11 @@ export default class {
   update (scroll, index) {
     this.updateX(scroll)
 
-    const amplitude = 0.1
+    const amplitude = 0.5
     const frequency = 1
 
-    this.mesh.rotation.z = -0.02 * Math.PI * Math.sin(this.index / frequency)
+    // Rotation of the mesh.
+    this.mesh.rotation.z = -0.2 * Math.PI * Math.sin(this.index / frequency)
     this.mesh.position.y = amplitude * Math.sin(this.index / frequency)
 
     this.opacity.target = index === this.index ? 1 : 0.4
@@ -141,5 +144,7 @@ export default class {
 
     this.program.uniforms.uAlpha.value = this.opacity.multiplier
     this.program.uniforms.uAlpha.value = this.opacity.multiplier * this.opacity.current // prettier-ignore
+
+    this.program.uniforms.uTime.value += 0.04
   }
 }

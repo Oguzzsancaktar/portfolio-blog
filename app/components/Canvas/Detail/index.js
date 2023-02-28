@@ -1,8 +1,8 @@
 import GSAP from 'gsap'
 import { Mesh, Plane, Program } from 'ogl'
 
-import fragment from 'shaders/plane-fragment.glsl'
-import vertex from 'shaders/plane-vertex.glsl'
+import fragment from 'shaders/collections-fragment.glsl'
+import vertex from 'shaders/collections-vertex.glsl'
 
 export default class {
   constructor ({ gl, scene, sizes, transition }) {
@@ -39,6 +39,8 @@ export default class {
       vertex,
       uniforms: {
         uAlpha: { value: 0 },
+        uSpeed: { value: 0 },
+        uTime: { value: 0 },
         tMap: { value: this.texture }
       }
     })
@@ -130,6 +132,7 @@ export default class {
 
   update () {
     this.updateX()
+    this.program.uniforms.uTime.value += 0.04
   }
 
   /**
