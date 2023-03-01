@@ -12,7 +12,7 @@ block content
           .home__titles__title=collection.data.title
 
       .home__gallery
-        each media, index in home.data.gallery
+        each media, index in [...home.data.gallery,...home.data.gallery]
           figure.home__gallery__media( class=`home__gallery__media--${(index % 5) + 1}`)
             img.home__gallery__media__image(data-src=media.image.url alt=media.image.alt)
 
