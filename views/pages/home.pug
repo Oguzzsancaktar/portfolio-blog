@@ -12,8 +12,8 @@ block content
           .home__titles__title=collection.data.title
 
       .home__gallery
-        each media in home.data.gallery
-          figure.home__gallery__media
+        each media, index in home.data.gallery
+          figure.home__gallery__media( class=`home__gallery__media--${(index % 5) + 1}`)
             img.home__gallery__media__image(data-src=media.image.url alt=media.image.alt)
 
       a.home__link(href=ctx.Link(home.data.collections))=home.data.button

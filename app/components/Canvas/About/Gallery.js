@@ -126,7 +126,6 @@ export default class Gallery {
       media.update(this.scroll.current)
 
       this.group.position.y = y * this.sizes.height
-      // media.mesh.position.y = Math.cos((media.mesh.position.x / this.width) * Math.PI) * 75 - 75
     })
   }
 
