@@ -20,7 +20,7 @@ export class Navigation extends Component {
     if (template === 'about') {
       GSAP.to(
         this.element, {
-          color: COLOR_BRIGHT_GRAY,
+          color: COLOR_QUARTER_SPANISH_WHITE,
           duration: 1.5
         }
       )
