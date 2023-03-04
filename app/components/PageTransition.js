@@ -12,6 +12,22 @@ const bounds = {
 
 export default class PageTransition {
   constructor () {
+    this.createRenderer()
+    this.createScene()
+
+    this.createCamera()
+
+    this.renderer.domElement.classList.add('page__transition__canvas')
+    document.body.appendChild(this.renderer.domElement)
+
+    this.createGeometry()
+
+    this.scene.add(this.triangle)
+
+    this.render()
+  }
+
+  createRenderer () {
     const { ww, wh } = bounds
 
     this.renderer = new THREE.WebGLRenderer({
@@ -22,14 +38,22 @@ export default class PageTransition {
     this.renderer.setPixelRatio(1)
     this.renderer.setSize(ww, wh)
     this.renderer.setClearColor(0xff00ff, 0)
-    this.scene = new THREE.Scene()
+  }
+
+  createCamera () {
+    const { ww, wh } = bounds
 
     this.camera = new THREE.OrthographicCamera(ww / -2, ww / 2, wh / 2, wh / -2, 1, 100)
     this.camera.lookAt(this.scene.position)
     this.camera.position.z = 1
+  }
 
-    this.renderer.domElement.classList.add('page__transition__canvas')
-    document.body.appendChild(this.renderer.domElement)
+  createScene () {
+    this.scene = new THREE.Scene()
+  }
+
+  createGeometry () {
+    const { ww, wh } = bounds
 
     this.geo = new THREE.BufferGeometry()
 
@@ -53,20 +77,14 @@ export default class PageTransition {
     this.triangle = new THREE.Mesh(this.geo, this.mat)
     this.triangle.scale.set(ww / 2, wh / 2, 1)
     this.triangle.frustumCulled = false
-
-    this.scene.add(this.triangle)
-
-    this.render()
   }
 
   render = () => {
-    console.log('render call')
     this.renderer.render(this.scene, this.camera)
   }
 
   show = () => {
     const { uProgress, uPower, uOut } = this.mat.uniforms
-    console.log('out', uProgress)
 
     const timeline = GSAP.timeline({
       defaults: {
