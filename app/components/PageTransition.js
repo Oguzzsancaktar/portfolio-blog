@@ -5,13 +5,13 @@ import GSAP from 'gsap'
 import fragment from 'shaders/page-transition-fragment.glsl'
 import vertex from 'shaders/page-transition-vertex.glsl'
 
-const bounds = {
-  ww: window.innerWidth,
-  wh: window.innerHeight
-}
-
 export default class PageTransition {
   constructor () {
+    this.sizes = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+
     this.createRenderer()
     this.createScene()
 
@@ -28,7 +28,7 @@ export default class PageTransition {
   }
 
   createRenderer () {
-    const { ww, wh } = bounds
+    const { width, height } = this.sizes
 
     this.renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -36,14 +36,14 @@ export default class PageTransition {
     })
 
     this.renderer.setPixelRatio(1)
-    this.renderer.setSize(ww, wh)
+    this.renderer.setSize(width, height)
     this.renderer.setClearColor(0xff00ff, 0)
   }
 
   createCamera () {
-    const { ww, wh } = bounds
+    const { width, height } = this.sizes
 
-    this.camera = new THREE.OrthographicCamera(ww / -2, ww / 2, wh / 2, wh / -2, 1, 100)
+    this.camera = new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, 1, 100)
     this.camera.lookAt(this.scene.position)
     this.camera.position.z = 1
   }
@@ -53,7 +53,7 @@ export default class PageTransition {
   }
 
   createGeometry () {
-    const { ww, wh } = bounds
+    const { width, height } = this.sizes
 
     this.geo = new THREE.BufferGeometry()
 
@@ -75,7 +75,7 @@ export default class PageTransition {
     })
 
     this.triangle = new THREE.Mesh(this.geo, this.mat)
-    this.triangle.scale.set(ww / 2, wh / 2, 1)
+    this.triangle.scale.set(width / 2, height / 2, 1)
     this.triangle.frustumCulled = false
   }
 
@@ -109,41 +109,50 @@ export default class PageTransition {
   }
 
   hide = () => {
-    const { uProgress, uPower, uOut } = this.mat.uniforms
+    return new Promise((resolve) => {
+      const { uProgress, uPower, uOut } = this.mat.uniforms
 
-    const timeline = GSAP.timeline({
-      defaults: {
-        duration: 1.25,
-        ease: 'power3.inOut',
-        onUpdate: () => this.render()
-      }
+      const timeline = GSAP.timeline({
+        defaults: {
+          duration: 1.25,
+          ease: 'power3.inOut',
+          onUpdate: () => this.render()
+        }
+      })
+      timeline
+        .set(uOut, { value: false }, 0)
+        .fromTo(uProgress, {
+          value: 1
+        }, {
+          value: 0
+        }, 0)
+        .fromTo(uPower, {
+          value: -1
+        }, {
+          value: 0,
+          ease: 'linear'
+        }, 0)
+
+      timeline.call(_ => {
+        resolve()
+      })
     })
-    timeline
-      .set(uOut, { value: false }, 0)
-      .fromTo(uProgress, {
-        value: 1
-      }, {
-        value: 0
-      }, 0)
-      .fromTo(uPower, {
-        value: -1
-      }, {
-        value: 0,
-        ease: 'linear'
-      }, 0)
   }
 
   onResize = () => {
-    const { ww, wh } = bounds
+    this.sizes.width = window.innerWidth
+    this.sizes.height = window.innerHeight
 
-    this.camera.left = ww / -2
-    this.camera.right = ww / 2
-    this.camera.top = wh / 2
-    this.camera.bottom = wh / -2
+    const { width, height } = this.sizes
+
+    this.camera.left = width / -2
+    this.camera.right = width / 2
+    this.camera.top = height / 2
+    this.camera.bottom = height / -2
     this.camera.updateProjectionMatrix()
 
-    this.renderer.setSize(ww, wh)
+    this.renderer.setSize(width, height)
 
-    this.triangle.scale.set(ww / 2, wh / 2, 1)
+    this.triangle.scale.set(width / 2, height / 2, 1)
   }
 }

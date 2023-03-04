@@ -76,7 +76,7 @@ class App {
   }
 
   async onChange (url) {
-    this.canvas.onChangeStart(this.template, url)
+    this.canvas.onChangeStart(this.template, url) // ?
 
     this.pageTransition.show()
     await this.page.hide()
@@ -104,12 +104,12 @@ class App {
       this.page = this.pages[this.template]
       this.page.create()
 
-      this.onResize()
-
       this.page.show()
-      this.pageTransition.hide()
+      await this.pageTransition.hide()
 
       this.addLinkListeners()
+
+      this.onResize()
     } else {
       console.error(`response status: ${request.status}`)
     }
@@ -124,9 +124,8 @@ class App {
       if (this.canvas && this.canvas.onResize) {
         this.canvas.onResize()
       }
-
       if (this.pageTransition && this.pageTransition.onResize) {
-        this.page.onResize()
+        this.pageTransition.onResize()
       }
     })
   }

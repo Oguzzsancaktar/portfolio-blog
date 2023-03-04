@@ -21,8 +21,6 @@ export default class Detail extends Page {
     this.link = new Button({
       element: this.elements.button
     })
-
-    // this.elements.button.addEventListener('click', () => console.log('clicked button'))
   }
 
   show () {

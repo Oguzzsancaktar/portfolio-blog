@@ -51,8 +51,6 @@ export default class {
    * Element.
    */
   setElement (element) {
-    console.log(element.id)
-
     if (element.id === 'collections') {
       const { index, medias } = element
       const media = medias[index]
