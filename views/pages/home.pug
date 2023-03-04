@@ -10,12 +10,11 @@ block content
         each collection, index in collections
           .home__titles__label=`${home.data.collection} ${ctx.Numbers(index)}`
           .home__titles__title=collection.data.title
-
       .home__gallery
-        each media, index in [...home.data.gallery,...home.data.gallery]
+        each media, index in [...home.data.gallery,...home.data.gallery,...home.data.gallery,...home.data.gallery,...home.data.gallery,...home.data.gallery,...home.data.gallery,...home.data.gallery,...home.data.gallery,...home.data.gallery]
           figure.home__gallery__media( class=`home__gallery__media--${(index % 5) + 1}`)
             img.home__gallery__media__image(data-src=media.image.url alt=media.image.alt)
-
+      
       a.home__link(href=ctx.Link(home.data.collections))
         p.home__link__text=home.data.button
         svg.home__link__icon(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 60")

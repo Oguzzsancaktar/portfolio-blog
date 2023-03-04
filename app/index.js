@@ -7,6 +7,7 @@ import Home from 'pages/home'
 import Preloader from './components/Preloader'
 import { Navigation } from './components/Navigation'
 import normalizeWheel from 'normalize-wheel'
+import PageTransition from './components/PageTransition'
 
 class App {
   constructor () {
@@ -16,6 +17,7 @@ class App {
     this.createPreloader()
     this.createNavigation()
     this.createPages()
+    this.createPageTransition()
 
     this.addEventListeners()
     this.addLinkListeners()
@@ -23,6 +25,12 @@ class App {
     this.onResize()
 
     this.update()
+  }
+
+  createCanvas () {
+    this.canvas = new Canvas({
+      template: this.template
+    })
   }
 
   createNavigation () {
@@ -38,10 +46,8 @@ class App {
     this.preloader.once('completed', this.onPreloaded.bind(this))
   }
 
-  createCanvas () {
-    this.canvas = new Canvas({
-      template: this.template
-    })
+  createPageTransition () {
+    this.pageTransition = new PageTransition()
   }
 
   createContent () {
@@ -72,6 +78,7 @@ class App {
   async onChange (url) {
     this.canvas.onChangeStart(this.template, url)
 
+    this.pageTransition.show()
     await this.page.hide()
 
     const request = await window.fetch(url)
@@ -100,6 +107,7 @@ class App {
       this.onResize()
 
       this.page.show()
+      this.pageTransition.hide()
 
       this.addLinkListeners()
     } else {
@@ -115,6 +123,10 @@ class App {
     window.requestAnimationFrame((_) => {
       if (this.canvas && this.canvas.onResize) {
         this.canvas.onResize()
+      }
+
+      if (this.pageTransition && this.pageTransition.onResize) {
+        this.page.onResize()
       }
     })
   }
