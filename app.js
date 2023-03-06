@@ -39,6 +39,10 @@ const HandleLinkResolver = (doc) => {
   if (doc.type === 'about') {
     return '/about'
   }
+
+  if (doc.type === 'projects') {
+    return '/projects'
+  }
 }
 
 app.use((req, res, next) => {
@@ -99,6 +103,7 @@ const handleRequest = async (req, res) => {
     })
   })
 
+  console.log('navigation', navigation.data.list)
   return {
     assets,
     about,
@@ -126,6 +131,12 @@ app.get('/collections', async (req, res) => {
   const defaults = await handleRequest(req, res)
 
   res.render('pages/collections', { ...defaults })
+})
+
+app.get('/projects', async (req, res) => {
+  const defaults = await handleRequest(req, res)
+
+  res.render('pages/projects', { ...defaults })
 })
 
 app.get('/detail/:uid', async (req, res) => {

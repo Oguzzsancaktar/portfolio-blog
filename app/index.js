@@ -1,9 +1,18 @@
+// Libs.
+import Stats from 'stats.js'
 import { each } from 'lodash'
-import About from 'pages/about'
+
+// Components
 import Canvas from 'components/Canvas'
+
+// Projects.
+import About from 'pages/about'
 import Collections from 'pages/collections'
 import Detail from 'pages/detail'
 import Home from 'pages/home'
+import Projects from 'pages/projects'
+import ProjectsCanvas from 'components/ProjectsCanvas'
+
 import Preloader from './components/Preloader'
 import { Navigation } from './components/Navigation'
 import normalizeWheel from 'normalize-wheel'
@@ -17,6 +26,9 @@ class App {
     this.createPreloader()
     this.createNavigation()
     this.createPages()
+
+    this.createProjectsCanvas()
+
     this.createPageTransition()
 
     this.addEventListeners()
@@ -24,7 +36,14 @@ class App {
 
     this.onResize()
 
+    this.createStats()
     this.update()
+  }
+
+  createProjectsCanvas () {
+    this.projects = new ProjectsCanvas({
+      template: this.template
+    })
   }
 
   createCanvas () {
@@ -60,11 +79,18 @@ class App {
       about: new About(),
       collections: new Collections(),
       detail: new Detail(),
+      projects: new Projects(),
       home: new Home()
     }
 
     this.page = this.pages[this.template]
     this.page.create()
+  }
+
+  createStats () {
+    this.stats = new Stats()
+
+    document.body.appendChild(this.stats.domElement)
   }
 
   // events
@@ -162,12 +188,20 @@ class App {
 
   // loop
   update () {
+    if (this.stats) {
+      this.stats.begin()
+    }
+
     if (this.page && this.page.update) {
       this.page.update()
     }
 
     if (this.canvas && this.canvas.update) {
       this.canvas.update(this.page.scroll)
+    }
+
+    if (this.stats) {
+      this.stats.end()
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))

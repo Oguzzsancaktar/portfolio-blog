@@ -38,12 +38,15 @@
   display: block;
   height: 30px;
 }
+
 .navigation__list {
-}
-.navigation__list__item {
+  display: flex;
   position: absolute;
   right: 4rem;
   top: 4rem;
+}
+.navigation__list__item {
+  margin-left: 2rem;
   pointer-events: auto;
 }
 .navigation__list__link {

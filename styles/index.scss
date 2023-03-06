@@ -32,6 +32,7 @@
 // ------------------------------------ // ------------------------------------------
 
 @import "./components/preloader";
+@import "./components/projectsPreloader.scss";
 @import "./components/pageTransition";
 
 // ------------------------------------ // ------------------------------------------
@@ -60,6 +61,8 @@
 @import "./pages/about/content";
 @import "./pages/about/gallery";
 @import "./pages/about/highlight";
+@import "./pages/projects/projects";
+
 
 // ------------------------------------ // ------------------------------------
 

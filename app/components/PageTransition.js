@@ -17,7 +17,6 @@ export default class PageTransition {
 
     this.createCamera()
 
-    this.renderer.domElement.classList.add('page__transition__canvas')
     document.body.appendChild(this.renderer.domElement)
 
     this.createGeometry()
@@ -38,6 +37,8 @@ export default class PageTransition {
     this.renderer.setPixelRatio(1)
     this.renderer.setSize(width, height)
     this.renderer.setClearColor(0xff00ff, 0)
+
+    this.renderer.domElement.classList.add('page__transition__canvas')
   }
 
   createCamera () {
