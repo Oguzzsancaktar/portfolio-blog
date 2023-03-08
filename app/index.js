@@ -41,7 +41,7 @@ class App {
   }
 
   createProjectsCanvas () {
-    this.projects = new ProjectsCanvas({
+    this.projectsCanvas = new ProjectsCanvas({
       template: this.template
     })
   }
@@ -99,10 +99,24 @@ class App {
     this.onResize()
     this.canvas.onPreloaded()
     this.page.show()
+
+    if (this.template === 'projects' && this.projectsCanvas && this.projectsCanvas.visualization && this.projectsCanvas.visualization.show) {
+      setTimeout(() => {
+        this.projectsCanvas.visualization.show()
+
+        this.projectsCanvas.logo.show()
+        this.projectsCanvas.logo.onRoute('/')
+      }, 3000)
+    }
   }
 
   async onChange (url) {
     this.canvas.onChangeStart(this.template, url) // ?
+
+    if (!url.includes('projects') && this.projectsCanvas.visualization.hide) {
+      this.projectsCanvas.visualization.hide()
+      this.projectsCanvas.logo.hide()
+    }
 
     this.pageTransition.show()
     await this.page.hide()
@@ -132,6 +146,13 @@ class App {
 
       this.page.show()
       await this.pageTransition.hide()
+
+      if (this.template === 'projects' && this.projectsCanvas && this.projectsCanvas.visualization && this.projectsCanvas.visualization.show) {
+        this.projectsCanvas.visualization.show()
+
+        this.projectsCanvas.logo.show()
+        this.projectsCanvas.logo.onRoute('/')
+      }
 
       this.addLinkListeners()
 
@@ -198,6 +219,10 @@ class App {
 
     if (this.canvas && this.canvas.update) {
       this.canvas.update(this.page.scroll)
+    }
+
+    if (this.projectsCanvas && this.projectsCanvas.update) {
+      this.projectsCanvas.update(this.template)
     }
 
     if (this.stats) {

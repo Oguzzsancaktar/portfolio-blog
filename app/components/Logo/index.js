@@ -19,9 +19,9 @@ export default class extends Element {
     })
 
     // TODO fix module scss
-    this.element.className = 'Logo logo'
+    this.element.className = 'Logo projects__logo'
     this.element.innerHTML = `
-      <svg class="Media logo__media" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.6 80.2">
+      <svg class="Media projects__logo__media" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.6 80.2">
         <g id="close">
           <path fill="none" d="M11.3,31.1l6.3,6.3" />
           <path fill="none" d="M20.4,40l8.9,9.1" />

@@ -22,8 +22,6 @@ export default class Background extends Points {
 
     this.velocity = 0.01
 
-    console.log(2, image, this.texture)
-
     this.geometryCreate()
     this.textureCreate()
     this.materialCreate()
@@ -37,7 +35,6 @@ export default class Background extends Points {
 
   textureCreate () {
     this.texture = new TextureLoader().load(image)
-    console.log(1, image, this.texture)
 
     this.texture.premultiplyAlpha = true
     this.texture.repeat.set(1, 1)
@@ -80,8 +77,6 @@ export default class Background extends Points {
   }
 
   onRoute (route) {
-    console.log('yyy')
-
     if (route === '/about') {
       GSAP.to(this.material.uniforms.multiplier, {
         value: 1
@@ -99,7 +94,6 @@ export default class Background extends Points {
         velocity: 0.005
       })
     } else {
-      console.log('xxx')
       GSAP.to(this.material.uniforms.multiplier, {
         value: 0
       })

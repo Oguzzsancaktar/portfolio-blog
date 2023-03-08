@@ -18,7 +18,7 @@ export default class Triangle extends Object3D {
 
     this.material = new MeshPhongMaterial({
       color: new Color('#fff'),
-      opacity: 1,
+      opacity: 0,
       transparent: true,
       wireframe: true
     })

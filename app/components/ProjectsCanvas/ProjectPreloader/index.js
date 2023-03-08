@@ -95,6 +95,9 @@ export default class extends Element {
     })
 
     GSAP.delayedCall(0.5, () => {
+      this.emit('preloaded', assets)
+      this.hide()
+
       WebFontLoader.load({
         custom: {
           families: ['Borda']
@@ -103,6 +106,7 @@ export default class extends Element {
         //   require('../../styles/fonts.scss')
         // ],
         active: () => {
+          console.log("WebFontLoader: 'Borda' is loaded")
           this.emit('preloaded', assets)
           this.hide()
         }

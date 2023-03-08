@@ -1,25 +1,22 @@
 // Libs.
 import AutoBind from 'auto-bind'
-import { map } from 'lodash'
+import { compact, each, map } from 'lodash'
 import {
   Color,
   DirectionalLight,
   MathUtils as THREEMath,
   PerspectiveCamera,
   Scene,
-  WebGLRenderer,
-  BoxGeometry,
-  MeshBasicMaterial,
-  Mesh
+  WebGLRenderer
 } from 'three'
 // Classes.
 import Background from 'classes/projects/Background'
-// import { Detection } from 'classes/projects/Detection'
-// Pages.
-import Visualization from 'pages/visualization'
 // Components.
 import Logo from 'components/Logo'
-import ProjectPreloader from './ProjectPreloader'
+// Constants.
+import { URLS } from '../../../data/URL'
+// Pages.
+import Visualization from 'pages/visualization'
 
 export default class {
   constructor () {
@@ -27,45 +24,27 @@ export default class {
     this.elements = []
     this.pages = []
 
-    this.url = '/projects'
+    this.url = ''
 
     this.height = window.innerHeight
     this.width = window.innerWidth
 
     // document.body.removeChild(document.querySelector('.projects__wrapper'))
 
-    // this.createProjectPreloader()
-
     this.createRenderer()
     this.createScene()
     this.createLights()
 
     this.createVisualization()
+    this.createLogo()
 
     this.createBackground()
-
-    // this.createLogo()
-
-    this.render()
-
-    console.log('end', this)
-  }
-
-  createProjectPreloader () {
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        this.projectPreloader = new ProjectPreloader()
-        console.log('this.projectPreloader', this.projectPreloader)
-      // this.projectPreloader.on('preloaded', this.onPreloaded)
-      })
-    })
   }
 
   createRenderer () {
     this.renderer = new WebGLRenderer()
 
     this.renderer.setSize(this.width, this.height)
-    // this.renderer.context.getShaderInfoLog = () => ''
 
     this.renderer.domElement.classList.add('projects__canvas')
 
@@ -128,17 +107,60 @@ export default class {
     this.elements.push(this.logo)
   }
 
-  render () {
-    this.renderer.render(this.scene, this.camera)
+  // Events.
 
-    this.background.update()
-    this.visualization.update()
+  onChange (url, push = true) {
+    if (this.isAnimating || this.url === url) return
 
-    this.frame = window.requestAnimationFrame(this.render)
+    if (URLS.indexOf(url) === -1) {
+      url = '/'
+    }
+
+    this.isAnimating = true
+
+    this.logo.disable()
+
+    let promises = map(this.pages, page => {
+      if ((page.url !== '/' && this.url.indexOf(page.url) !== -1) || page.url === this.url) {
+        return page.hide()
+      }
+    })
+
+    promises = compact(promises)
+
+    each(this.elements, element => {
+      element.onRoute(url)
+    })
+
+    this.url = url
+
+    Promise.all(promises).then(() => {
+      this.isAnimating = false
+
+      this.logo.enable()
+
+      // each(this.pages, page => {
+      //   console.log('page', page)
+      //   if ((page.url !== '/' && url.indexOf(page.url) !== -1) || page.url === url) {
+      //     console.log(111)
+      //     page.show()
+      //   }
+      // })
+
+      if (push) {
+        window.history.pushState({ page: this.url }, 'Oguz Taha Sancaktar — Creative Front End Developer', this.url)
+      }
+
+      if (this.cursor) {
+        this.cursor.update()
+      }
+    })
   }
 
   // Update
-  update (scroll) {
-
+  update () {
+    this.renderer.render(this.scene, this.camera)
+    this.background.update()
+    this.visualization.update()
   }
 }
