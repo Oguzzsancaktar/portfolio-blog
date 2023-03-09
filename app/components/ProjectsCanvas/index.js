@@ -157,6 +157,17 @@ export default class {
     })
   }
 
+  onResize () {
+    this.height = window.innerHeight
+    this.width = window.innerWidth
+
+    this.camera.aspect = this.width / this.height
+    this.camera.updateProjectionMatrix()
+
+    this.renderer.clear()
+    this.renderer.setSize(this.width, this.height)
+  }
+
   // Update
   update () {
     this.renderer.render(this.scene, this.camera)

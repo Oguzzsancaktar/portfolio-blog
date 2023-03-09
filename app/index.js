@@ -174,6 +174,10 @@ class App {
       if (this.pageTransition && this.pageTransition.onResize) {
         this.pageTransition.onResize()
       }
+
+      if (this.projectsCanvas && this.projectsCanvas.onResize) {
+        this.projectsCanvas.onResize()
+      }
     })
   }
 
