@@ -32,6 +32,10 @@ module.exports = {
         {
           from: './shared',
           to: ''
+        },
+        {
+          from: './assets',
+          to: ''
         }
       ]
     }),
@@ -45,6 +49,7 @@ module.exports = {
 
   module: {
     rules: [
+
       {
         test: /\.js$/,
         use: {

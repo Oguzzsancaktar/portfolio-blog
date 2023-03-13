@@ -40,8 +40,8 @@ const HandleLinkResolver = (doc) => {
     return '/about'
   }
 
-  if (doc.type === 'projects') {
-    return '/projects'
+  if (doc.type === 'discover') {
+    return '/discover'
   }
 }
 
@@ -133,10 +133,31 @@ app.get('/collections', async (req, res) => {
   res.render('pages/collections', { ...defaults })
 })
 
-app.get('/projects', async (req, res) => {
+app.get('/discover', async (req, res) => {
   const defaults = await handleRequest(req, res)
-
-  res.render('pages/projects', { ...defaults })
+  const socials = [
+    {
+      label: 'Twitter',
+      url: 'https://www.twitter.com/lhbzr/'
+    },
+    {
+      label: 'Tumblr',
+      url: 'http://lhbzr.tumblr.com/'
+    },
+    {
+      label: 'GitHub',
+      url: 'https://www.github.com/lhbzr/'
+    },
+    {
+      label: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/lhbzr/'
+    },
+    {
+      label: 'Email',
+      url: 'mailto:hello@lhbzr.com'
+    }
+  ]
+  res.render('pages/discover', { ...defaults, socials })
 })
 
 app.get('/detail/:uid', async (req, res) => {

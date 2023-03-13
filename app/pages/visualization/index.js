@@ -1,7 +1,7 @@
 import { Group } from 'three'
 
-import { Analyser } from 'classes/projects/Analyser'
-import Page from 'classes/projects/Page'
+import { Analyser } from 'classes/discover/Analyser'
+import Page from 'classes/discover/Page'
 
 import Triangle from './Triangle'
 

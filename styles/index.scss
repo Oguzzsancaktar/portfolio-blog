@@ -30,9 +30,10 @@
 // ------------------------------------ // ------------------------------------------
 // --------------------------- C O M P O N E N T S ----------------------------------
 // ------------------------------------ // ------------------------------------------
-
+@import "./components/menu";
+@import "./components/player";
 @import "./components/preloader";
-@import "./components/projectsPreloader.scss";
+@import "./components/discoverPreloader";
 @import "./components/pageTransition";
 
 // ------------------------------------ // ------------------------------------------
@@ -61,7 +62,13 @@
 @import "./pages/about/content";
 @import "./pages/about/gallery";
 @import "./pages/about/highlight";
-@import "./pages/projects/projects";
+
+// ------------------------------------
+// Discover
+// ------------------------------------
+
+@import "./pages/discover/discover";
+
 
 
 // ------------------------------------ // ------------------------------------

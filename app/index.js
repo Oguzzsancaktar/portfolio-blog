@@ -5,13 +5,13 @@ import { each } from 'lodash'
 // Components
 import Canvas from 'components/Canvas'
 
-// Projects.
+// Discover.
 import About from 'pages/about'
 import Collections from 'pages/collections'
 import Detail from 'pages/detail'
 import Home from 'pages/home'
-import Projects from 'pages/projects'
-import ProjectsCanvas from 'components/ProjectsCanvas'
+import Discover from 'pages/discover'
+import DiscoverCanvas from 'components/DiscoverCanvas'
 
 import Preloader from './components/Preloader'
 import { Navigation } from './components/Navigation'
@@ -27,7 +27,7 @@ class App {
     this.createNavigation()
     this.createPages()
 
-    this.createProjectsCanvas()
+    this.createDiscoverCanvas()
 
     this.createPageTransition()
 
@@ -40,8 +40,8 @@ class App {
     this.update()
   }
 
-  createProjectsCanvas () {
-    this.projectsCanvas = new ProjectsCanvas({
+  createDiscoverCanvas () {
+    this.discoverCanvas = new DiscoverCanvas({
       template: this.template
     })
   }
@@ -79,11 +79,12 @@ class App {
       about: new About(),
       collections: new Collections(),
       detail: new Detail(),
-      projects: new Projects(),
+      discover: new Discover(),
       home: new Home()
     }
 
     this.page = this.pages[this.template]
+
     this.page.create()
   }
 
@@ -100,22 +101,24 @@ class App {
     this.canvas.onPreloaded()
     this.page.show()
 
-    if (this.template === 'projects' && this.projectsCanvas && this.projectsCanvas.visualization && this.projectsCanvas.visualization.show) {
-      setTimeout(() => {
-        this.projectsCanvas.visualization.show()
-
-        this.projectsCanvas.logo.show()
-        this.projectsCanvas.logo.onRoute('/')
-      }, 3000)
-    }
+    this.discoverCanvas.onPreloaded(this.template)
   }
 
   async onChange (url) {
     this.canvas.onChangeStart(this.template, url) // ?
 
-    if (!url.includes('projects') && this.projectsCanvas.visualization.hide) {
-      this.projectsCanvas.visualization.hide()
-      this.projectsCanvas.logo.hide()
+    if (url.includes('current') && this.discoverCanvas.background.onRoute) {
+      return this.discoverCanvas.background.onRoute('/current')
+    }
+
+    if (url.includes('projects') && this.discoverCanvas.showProjects) {
+      return this.discoverCanvas.showProjects()
+    }
+
+    if (!url.includes('discover') && this.discoverCanvas.visualization.hide) {
+      await this.discoverCanvas.hideMenu()
+      this.discoverCanvas.visualization.hide()
+      this.discoverCanvas.logo.hide()
     }
 
     this.pageTransition.show()
@@ -147,11 +150,13 @@ class App {
       this.page.show()
       await this.pageTransition.hide()
 
-      if (this.template === 'projects' && this.projectsCanvas && this.projectsCanvas.visualization && this.projectsCanvas.visualization.show) {
-        this.projectsCanvas.visualization.show()
+      if (this.template === 'discover' && this.discoverCanvas && this.discoverCanvas.visualization && this.discoverCanvas.visualization.show) {
+        this.discoverCanvas.visualization.show()
 
-        this.projectsCanvas.logo.show()
-        this.projectsCanvas.logo.onRoute('/')
+        await this.discoverCanvas.showMenu()
+
+        this.discoverCanvas.logo.show()
+        this.discoverCanvas.logo.onRoute('/discover')
       }
 
       this.addLinkListeners()
@@ -175,8 +180,8 @@ class App {
         this.pageTransition.onResize()
       }
 
-      if (this.projectsCanvas && this.projectsCanvas.onResize) {
-        this.projectsCanvas.onResize()
+      if (this.discoverCanvas && this.discoverCanvas.onResize) {
+        this.discoverCanvas.onResize()
       }
     })
   }
@@ -225,8 +230,8 @@ class App {
       this.canvas.update(this.page.scroll)
     }
 
-    if (this.projectsCanvas && this.projectsCanvas.update) {
-      this.projectsCanvas.update(this.template)
+    if (this.discoverCanvas && this.discoverCanvas.update) {
+      this.discoverCanvas.update(this.template)
     }
 
     if (this.stats) {

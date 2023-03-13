@@ -1,9 +1,9 @@
 import GSAP, { Power2 } from 'gsap'
 
-import Element from 'classes/projects/Element'
+import Element from 'classes/discover/Element'
 import SVGMorpheus from 'plugins/SVGMorpheus'
 
-import { Detection } from 'classes/projects/Detection'
+import { Detection } from 'classes/discover/Detection'
 
 // import * as styles from './styles.scss'
 
@@ -19,9 +19,9 @@ export default class extends Element {
     })
 
     // TODO fix module scss
-    this.element.className = 'Logo projects__logo'
+    this.element.className = 'Logo discover__logo'
     this.element.innerHTML = `
-      <svg class="Media projects__logo__media" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.6 80.2">
+      <svg class="Media discover__logo__media" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.6 95">
         <g id="close">
           <path fill="none" d="M11.3,31.1l6.3,6.3" />
           <path fill="none" d="M20.4,40l8.9,9.1" />
@@ -29,12 +29,15 @@ export default class extends Element {
         </g>
 
         <g id="logo">
-          <path fill="none" d="M40.1,68.4v11.3H0.5" />
-          <path fill="none" d="M0.5,62.7h39.6" />
-          <path fill="none" d="M0.5,51.4h39.6" />
-          <path fill="none" d="M0.5,45.8v-2.8c0-4.7,3.8-8.5,8.5-8.5h0c4.7,0,8.5,3.8,8.5,8.5 v25.5V42.9c0-4.7,3.8-8.5,8.5-8.5h5.7c4.7,0,8.5,3.8,8.5,8.5v2.8" />
-          <path fill="none" d="M28.8,17.5h11.3v11.3h-9c-5.1,0-10-2-13.7-5.7l0,0 c-3.6-3.6-8.5-5.7-13.7-5.7H0.5v11.3" />
-          <path fill="none" d="M0.5,11.8V9c0-4.7,3.8-8.5,8.5-8.5h0c4.7,0,8.5,3.8,8.5,8.5v22.5 V9c0-4.7,3.8-8.5,8.5-8.5h14.1" />
+        <path class="st0" d="M0.7,11.3V8.5C0.7,3.8,4.5,0,9.2,0s8.5,3.8,8.5,8.5V31V8.5c0-4.7,3.8-8.5,8.5-8.5h14.2"/>
+        <path class="st0" d="M0,38.9c0,0,8.8,0.1,11.7,0.1c4,0,8.5,3.8,8.5,8.5V57v-9.5c0-4.7,3.8-8.5,8.5-8.5h11.8"/>
+        <path class="st0" d="M28.7,92.7h11.3V81.4h-9c-5.1,0-10,2-13.7,5.7c-3.6,3.6-8.5,5.7-13.7,5.7H0.5V81.4"/>
+        <path class="st0" d="M0.5,66.2V54.9h11.4"/>
+        <path class="st0" d="M0.7,22.8h39.8"/>
+        <path class="st0" d="M0.1,81.8l40.2-15.2"/>
+        <path class="st0" d="M0,66.7l40.5-0.1"/>
+        <path class="st0" d="M40,66.1V54.8H28.7"/>
+        <path class="st0" d="M0.7,11.2v23.4"/>
         </g>
       </svg>
     `
@@ -86,7 +89,7 @@ export default class extends Element {
   click () {
     if (!this.isEnabled) return
 
-    if (this.route.indexOf('/project/') > -1) {
+    if (this.route.indexOf('/projects') > -1) {
       this.emit('change', '/work')
     } else {
       this.emit('change', '/')
@@ -121,13 +124,13 @@ export default class extends Element {
   onRoute (route) {
     this.route = route
 
-    if (route === '/') {
+    if (route === '/discover') {
       this.morpheus.to('logo', {
         duration: 1000,
         rotation: 'random'
       })
 
-      GSAP.to(this.element, 1, {
+      GSAP.to(this.element, {
         left: '50%',
         top: '50%'
       })
@@ -139,7 +142,7 @@ export default class extends Element {
         rotation: 'random'
       })
 
-      GSAP.to(this.element, 1, {
+      GSAP.to(this.element, {
         left: '50%',
         top: 100
       })
