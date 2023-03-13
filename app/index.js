@@ -99,21 +99,16 @@ class App {
   onPreloaded () {
     this.onResize()
     this.canvas.onPreloaded()
-    this.page.show()
+
+    if (this.template !== 'discover') {
+      this.page.show()
+    }
 
     this.discoverCanvas.onPreloaded(this.template)
   }
 
   async onChange (url) {
     this.canvas.onChangeStart(this.template, url) // ?
-
-    if (url.includes('current') && this.discoverCanvas.background.onRoute) {
-      return this.discoverCanvas.background.onRoute('/current')
-    }
-
-    if (url.includes('projects') && this.discoverCanvas.showProjects) {
-      return this.discoverCanvas.showProjects()
-    }
 
     if (!url.includes('discover') && this.discoverCanvas.visualization.hide) {
       await this.discoverCanvas.hideMenu()

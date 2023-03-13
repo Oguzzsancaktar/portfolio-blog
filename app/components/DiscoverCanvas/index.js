@@ -1,6 +1,5 @@
 // Libs.
 import AutoBind from 'auto-bind'
-import { compact, each, map } from 'lodash'
 import {
   Color,
   DirectionalLight,
@@ -17,8 +16,6 @@ import Logo from 'components/Logo'
 import Menu from 'components/Menu'
 import Player from 'components/Player'
 
-// Constants.
-import { URLS } from '../../../data/URL'
 // Pages.
 import Visualization from 'pages/visualization'
 import Work from 'pages/work'

@@ -36,8 +36,9 @@ export default class Discover extends Page {
   }
 
   show () {
+    this.element.parentNode.classList = 'discover discover--active'
     const timeline = GSAP.timeline()
-    console.log(111222, this.elements)
+
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         const { social, title } = this.elements
@@ -82,6 +83,8 @@ export default class Discover extends Page {
   }
 
   hide () {
+    this.element.parentNode.classList = 'discover '
+
     const { social, title } = this.elements
 
     const timeline = GSAP.timeline()
