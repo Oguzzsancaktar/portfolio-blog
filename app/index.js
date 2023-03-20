@@ -115,7 +115,10 @@ class App {
     }
     this.canvas.onChangeStart(this.template, url) // ?
 
-    this.pageTransition.show()
+    console.log(url, !url.includes('/detail'), !url.includes('/collections'))
+    if (!url.includes('/detail') && !url.includes('/collections')) {
+      this.pageTransition.show()
+    }
     await this.page.hide()
 
     const request = await window.fetch(url)
@@ -141,16 +144,15 @@ class App {
       this.page = this.pages[this.template]
       this.page.create()
 
-      // here brokes about
-      console.log('urlll', url)
       if (url.includes('/discover')) {
-        console.log(7)
         this.discoverCanvas.showMenuLogoVisualisation()
       } else {
         this.page.show()
       }
 
-      await this.pageTransition.hide()
+      if (!url.includes('/detail') && !url.includes('/collections')) {
+        await this.pageTransition.hide()
+      }
 
       this.addLinkListeners()
 
