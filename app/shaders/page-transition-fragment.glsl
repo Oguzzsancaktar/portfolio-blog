@@ -8,7 +8,7 @@ uniform float uPower;
 uniform bool uOut;
 
 vec4 transparent = vec4(0., 0., 0., 0.);
-vec4 black = vec4(0.2, 0., 0., 1.);
+vec4 black = vec4(.5, .5, .5, .5);
 
 varying vec2 vUv;
 

@@ -124,30 +124,42 @@ export default class extends Element {
   onRoute (route) {
     this.route = route
 
-    if (route === '/discover') {
-      this.morpheus.to('logo', {
-        duration: 1000,
-        rotation: 'random'
-      })
+    return new Promise((resolve, reject) => {
+      if (route === '/discover') {
+        this.morpheus.to('logo', {
+          duration: 1000,
+          rotation: 'random'
+        })
 
-      GSAP.to(this.element, {
-        left: '50%',
-        top: '50%'
-      })
+        GSAP.to(this.element, {
+          left: '50%',
+          top: '50%',
+          duration: 0.8,
+          onComplete: () => {
+            console.log(4)
+            resolve()
+          }
+        })
 
-      this.state = CENTER
-    } else {
-      this.morpheus.to('close', {
-        duration: 1000,
-        rotation: 'random'
-      })
+        this.state = CENTER
+      } else {
+        this.morpheus.to('close', {
+          duration: 1000,
+          rotation: 'random'
+        })
 
-      GSAP.to(this.element, {
-        left: '50%',
-        top: 100
-      })
+        GSAP.to(this.element, {
+          left: '50%',
+          top: 100,
+          duration: 0.8,
+          onComplete: () => {
+            console.log(4)
+            resolve()
+          }
+        })
 
-      this.state = TOP
-    }
+        this.state = TOP
+      }
+    })
   }
 }

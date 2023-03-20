@@ -65,8 +65,9 @@ export default class Discover extends Page {
         }, {
           autoAlpha: 1,
           ease,
-          y: 0
-        }, 0.05, '-= 1.45')
+          y: 0,
+          stagger: 0.01
+        }, '-= 1.45')
 
         timeline.fromTo(social, {
           autoAlpha: 0,
@@ -74,17 +75,16 @@ export default class Discover extends Page {
         }, {
           autoAlpha: 1,
           ease,
-          y: 0
+          y: 0,
+          stagger: 0.01
         }, '-= 1.45')
       })
     })
 
-    return super.show(timeline)
+    return super.show()
   }
 
-  hide () {
-    this.element.parentNode.classList = 'discover '
-
+  async hide () {
     const { social, title } = this.elements
 
     const timeline = GSAP.timeline()
@@ -93,27 +93,33 @@ export default class Discover extends Page {
     const spans = calculate(this.descriptionSpans)
 
     timeline.to(title, {
+      stagger: 0.01,
       autoAlpha: 0,
       ease,
       y: -50
     })
 
-    timeline.staggerTo(spans, {
+    timeline.to(spans, {
       autoAlpha: 0,
       ease,
-      y: -50
-    }, 0.05, '-= 0.5')
+      y: -50,
+      stagger: 0.01
+    }, '-= 0.5')
 
     timeline.to(social, {
       autoAlpha: 0,
       ease,
-      y: -50
+      y: -50,
+      stagger: 0.01
     }, '-= 0.5')
 
     timeline.set(this.element, {
-      autoAlpha: 0
+      autoAlpha: 0,
+      onComplete: () => {
+        this.element.parentNode.classList = ''
+      }
     })
 
-    return super.hide(timeline)
+    return super.hide()
   }
 }

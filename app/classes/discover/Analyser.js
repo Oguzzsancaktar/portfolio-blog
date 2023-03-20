@@ -1,7 +1,6 @@
 import AutoBind from 'auto-bind'
 
 import { noop } from 'lodash'
-import { get } from 'utils/ajax'
 
 import Songs from '../../../data/Songs'
 

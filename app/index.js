@@ -42,7 +42,8 @@ class App {
 
   createDiscoverCanvas () {
     this.discoverCanvas = new DiscoverCanvas({
-      template: this.template
+      template: this.template,
+      discover: this.pages.discover
     })
   }
 
@@ -100,6 +101,7 @@ class App {
     this.onResize()
     this.canvas.onPreloaded()
 
+    // ekle show methodunu discovera
     if (this.template !== 'discover') {
       this.page.show()
     }
@@ -108,13 +110,10 @@ class App {
   }
 
   async onChange (url) {
-    this.canvas.onChangeStart(this.template, url) // ?
-
-    if (!url.includes('discover') && this.discoverCanvas.visualization.hide) {
-      await this.discoverCanvas.hideMenu()
-      this.discoverCanvas.visualization.hide()
-      this.discoverCanvas.logo.hide()
+    if (this.discoverCanvas.destroy) {
+      this.discoverCanvas.destroy()
     }
+    this.canvas.onChangeStart(this.template, url) // ?
 
     this.pageTransition.show()
     await this.page.hide()
@@ -142,17 +141,16 @@ class App {
       this.page = this.pages[this.template]
       this.page.create()
 
-      this.page.show()
-      await this.pageTransition.hide()
-
-      if (this.template === 'discover' && this.discoverCanvas && this.discoverCanvas.visualization && this.discoverCanvas.visualization.show) {
-        this.discoverCanvas.visualization.show()
-
-        await this.discoverCanvas.showMenu()
-
-        this.discoverCanvas.logo.show()
-        this.discoverCanvas.logo.onRoute('/discover')
+      // here brokes about
+      console.log('urlll', url)
+      if (url.includes('/discover')) {
+        console.log(7)
+        this.discoverCanvas.showMenuLogoVisualisation()
+      } else {
+        this.page.show()
       }
+
+      await this.pageTransition.hide()
 
       this.addLinkListeners()
 

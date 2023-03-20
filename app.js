@@ -137,24 +137,20 @@ app.get('/discover', async (req, res) => {
   const defaults = await handleRequest(req, res)
   const socials = [
     {
-      label: 'Twitter',
-      url: 'https://www.twitter.com/lhbzr/'
-    },
-    {
-      label: 'Tumblr',
-      url: 'http://lhbzr.tumblr.com/'
+      label: 'Instagram',
+      url: 'https://www.twitter.com/_sancaktar'
     },
     {
       label: 'GitHub',
-      url: 'https://www.github.com/lhbzr/'
+      url: 'https://github.com/Oguzzsancaktar'
     },
     {
       label: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/lhbzr/'
+      url: 'https://www.linkedin.com/in/oguztahasancaktar/'
     },
     {
       label: 'Email',
-      url: 'mailto:hello@lhbzr.com'
+      url: 'mailto:oguztahasancaktar@gmail.com'
     }
   ]
   res.render('pages/discover', { ...defaults, socials })

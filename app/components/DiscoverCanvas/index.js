@@ -21,8 +21,10 @@ import Visualization from 'pages/visualization'
 import Work from 'pages/work'
 
 export default class {
-  constructor () {
+  constructor ({ discover }) {
     AutoBind(this)
+
+    this.discover = discover
     this.elements = []
     this.pages = []
 
@@ -53,6 +55,8 @@ export default class {
     this.menu.on('change', (route) => {
       if (route === '/projects') {
         this.showProjects()
+      } else if (route === '/current') {
+        this.showDiscover()
       }
     })
 
@@ -140,13 +144,31 @@ export default class {
     this.logo = new Logo()
 
     this.logo.on('change', (route) => {
+      console.log('logo change ', route)
       this.hideProjects()
+      this.hideDiscover()
     })
 
     this.elements.push(this.logo)
   }
 
   // Methods.
+
+  async showMenuLogoVisualisation () {
+    await this.showMenu()
+
+    this.logo.show()
+    this.logo.onRoute('/discover').then(async () => {
+      await this.visualization.show()
+    })
+  }
+
+  async hideLogoAndVisualisation (route = '/discover') {
+    this.hideMenu()
+
+    this.logo.onRoute(route)
+    await this.visualization.hide()
+  }
 
   async showMenu () {
     this.menu.enable()
@@ -160,22 +182,30 @@ export default class {
     await this.menu.hide()
   }
 
+  async showDiscover () {
+    this.background.onRoute('/current')
+    await this.hideLogoAndVisualisation('/current')
+    this.discover.show()
+  }
+
+  async hideDiscover () {
+    if (this.discover) {
+      await this.discover.hide()
+      this.showMenuLogoVisualisation()
+      this.background.onRoute('/discover')
+    }
+  }
+
   async showProjects () {
-    await this.hideMenu()
-
-    this.logo.onRoute('/projects')
-    await this.visualization.hide()
-
+    await this.hideLogoAndVisualisation('/projects')
     this.work.show()
   }
 
   async hideProjects () {
-    await this.work.hide()
-
-    this.logo.onRoute('/discover')
-    this.visualization.show()
-
-    this.showMenu()
+    if (this.work) {
+      await this.work.hide()
+      this.showMenuLogoVisualisation('/projects')
+    }
   }
 
   // Events.
@@ -193,12 +223,7 @@ export default class {
   onPreloaded (template) {
     if (template === 'discover') {
       setTimeout(() => {
-        this.showMenu()
-
-        this.visualization.show()
-
-        this.logo.show()
-        this.logo.onRoute('/discover')
+        this.showMenuLogoVisualisation()
       }, 3000)
     }
   }
@@ -210,5 +235,15 @@ export default class {
     this.visualization.update()
 
     this.work.update()
+  }
+
+  async destroy () {
+    this.work.hide()
+
+    this.discover.hide()
+
+    this.logo.hide()
+
+    await this.hideLogoAndVisualisation()
   }
 }

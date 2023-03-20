@@ -46,7 +46,7 @@ export default class Media extends Group {
       this.image.needsUpdate = true
       this.image.premultiplyAlpha = true
 
-      this.renderer.setTexture2D(this.image)
+      this.renderer.initTexture(this.image)
     })
 
     this.height = size * 0.563333333 // Ratio
@@ -166,7 +166,7 @@ export default class Media extends Group {
     this.titleTexture.needsUpdate = true
     this.titleTexture.premultiplyAlpha = true
 
-    // this.renderer.setTexture2D(this.titleTexture)
+    this.renderer.initTexture(this.titleTexture)
 
     this.titleMaterial = new ShaderMaterial({
       blending: AdditiveBlending,

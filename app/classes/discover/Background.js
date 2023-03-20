@@ -76,7 +76,7 @@ export default class Background extends Points {
 
   onRoute (route) {
     console.log('BG route', route)
-    if (route === 'current') {
+    if (route === '/current') {
       GSAP.to(this.material.uniforms.multiplier, {
         value: 1
       })

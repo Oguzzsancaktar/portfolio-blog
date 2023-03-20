@@ -18,23 +18,23 @@ export default class extends Element {
 
     this.element.className = 'Menu menu'
     this.element.innerHTML = `
-      <a href="/current" data-index="0" class="Button button">
+      <button href="/current" data-index="0" class="Button button">
         <svg class="button__media" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.6 63.3">
           <path class="Line button__path" d="M129.6,13.6c-38.7,0-77.3,0-116,0C9.2,9.2,4.8,4.8,0.4,0.4"/>
           <path class="Line button__path" d="M0.4,62.9c4.4-4.4,8.8-8.8,13.3-13.3c38.7,0,77.3,0,116,0"/>
         </svg>
 
         <span class="Text button__text">Current</span>
-      </a>
+      </button>
 
-      <a href="/projects" data-index="1" class="Button button">
+      <button href="/projects" data-index="1" class="Button button">
         <svg class="button__media" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.6 63.3">
           <path class="Line button__path" d="M129.3,0.4c-4.4,4.4-8.8,8.8-13.3,13.3c-38.7,0-77.3,0-116,0"/>
           <path class="Line button__path" d="M0,49.7c38.7,0,77.3,0,116,0c4.4,4.4,8.8,8.8,13.3,13.3"/>
         </svg>
 
         <span class="Text button__text">Projects</span>
-      </a>
+      </button>
     `
 
     this.elements = {
@@ -86,12 +86,12 @@ export default class extends Element {
     const timeline = GSAP.timeline()
 
     each(this.elements.textsSpans, spans => {
-      timeline.staggerTo(spans, 0.5, {
+      timeline.to(spans, 0.5, {
         y: '0%'
       }, 0.1, 'start')
     })
 
-    timeline.staggerTo(this.elements.lines, 0.5, {
+    timeline.to(this.elements.lines, 0.5, {
       strokeDashoffset: 0
     }, 0.1, 'start')
 
@@ -102,14 +102,14 @@ export default class extends Element {
     const timeline = GSAP.timeline()
 
     each(this.elements.textsSpans, spans => {
-      timeline.staggerTo(spans, 0.5, {
+      timeline.to(spans, 0.5, {
         cycle: {
           y: ['100%', '-100%']
         }
       }, 0.1, 'start')
     })
 
-    timeline.staggerTo(this.elements.lines, 0.5, {
+    timeline.to(this.elements.lines, 0.5, {
       strokeDashoffset: 134.8
     }, 0.1, 'start')
 
