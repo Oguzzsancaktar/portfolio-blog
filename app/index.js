@@ -7,6 +7,7 @@ import Canvas from 'components/Canvas'
 
 // Discover.
 import About from 'pages/about'
+import Blog from 'pages/blog'
 import Collections from 'pages/collections'
 import Detail from 'pages/detail'
 import Home from 'pages/home'
@@ -78,6 +79,7 @@ class App {
   createPages () {
     this.pages = {
       about: new About(),
+      blog: new Blog(),
       collections: new Collections(),
       detail: new Detail(),
       discover: new Discover(),
@@ -115,7 +117,6 @@ class App {
     }
     this.canvas.onChangeStart(this.template, url) // ?
 
-    console.log(url, !url.includes('/detail'), !url.includes('/collections'))
     if (!url.includes('/detail') && !url.includes('/collections')) {
       this.pageTransition.show()
     }
@@ -259,6 +260,10 @@ class App {
         const {
           target: { href }
         } = event
+
+        if (event.target.getAttribute('target')) {
+          return
+        }
         event.preventDefault()
         this.onChange(href)
       }

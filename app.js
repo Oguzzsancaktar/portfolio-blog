@@ -15,6 +15,20 @@ const { client } = require('./config')
 const app = express()
 const port = 3000
 
+const next = require('next')
+const dev = process.env.NODE_ENV !== 'production'
+const nextApp = next({ dev })
+const handle = nextApp.getRequestHandler()
+
+nextApp.prepare().then(() => {
+  console.log('Next.js is ready')
+  // your existing routes here
+  app.get('*', (req, res) => {
+    console.log('Next.js is handling the request')
+    return handle(req, res)
+  })
+})
+
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -103,7 +117,6 @@ const handleRequest = async (req, res) => {
     })
   })
 
-  console.log('navigation', navigation.data.list)
   return {
     assets,
     about,

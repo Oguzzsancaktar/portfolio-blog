@@ -34,6 +34,8 @@ export default class Page {
   create () {
     this.element = document.querySelector(this.selector)
 
+    console.log('this.element page', document, this.selector, this.element)
+
     this.elements = {}
 
     this.scroll = {
