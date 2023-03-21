@@ -13,7 +13,7 @@
     "backend:development": "nodemon app.js",
     "frontend:build": "webpack --progress --config webpack.config.build.js",
     "frontend:development": "webpack serve --progress --config webpack.config.development.js",
-    "setup": "npm install && npm run frontend:build &&  npm run next:build && npm run backend:build",
+    "setup": "npm install && npm run frontend:build &&  npm run next:build",
     "start:all": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
     "start": "node app.js"
   },
