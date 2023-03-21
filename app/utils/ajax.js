@@ -1,6 +1,6 @@
 export function get (url) {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
+    const xhr = new window.XMLHttpRequest()
     const done = 4
     const success = 200
 

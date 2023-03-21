@@ -1,9 +1,9 @@
-if (CanvasRenderingContext2D && !CanvasRenderingContext2D.renderText) {
-  CanvasRenderingContext2D.prototype.renderText = function (text, x, y, letterSpacing) {
+
+if (window.CanvasRenderingContext2D && !window.CanvasRenderingContext2D.renderText) {
+  window.CanvasRenderingContext2D.prototype.renderText = function (text, x, y, letterSpacing) {
     if (!text || typeof text !== 'string' || text.length === 0) {
       return
     }
-
     if (typeof letterSpacing === 'undefined') {
       letterSpacing = 0
     }
@@ -20,7 +20,7 @@ if (CanvasRenderingContext2D && !CanvasRenderingContext2D.renderText) {
     } else if (this.textAlign === 'center') {
       let totalWidth = 0
 
-      for (var i = 0; i < characters.length; i++) {
+      for (let i = 0; i < characters.length; i++) {
         totalWidth += (this.measureText(characters[i]).width + letterSpacing)
       }
 
