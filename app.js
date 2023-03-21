@@ -17,7 +17,8 @@ const port = 3000
 
 const next = require('next')
 const dev = process.env.NODE_ENV !== 'production'
-const nextApp = next({ dev: true })
+console.log(dev)
+const nextApp = next({ dev })
 const handle = nextApp.getRequestHandler()
 
 nextApp.prepare().then(() => {

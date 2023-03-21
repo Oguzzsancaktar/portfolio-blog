@@ -25,39 +25,8 @@ export default [
         text: 'Studio Maertens'
       }
     ],
-    url: 'https://studiomaertens.com/',
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/studio-maertens/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/studio-maertens/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/studio-maertens/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/studio-maertens/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/studio-maertens/5.jpg'),
-        height: 1080,
-        width: 1920
-      }
-    ]
+    url: 'https://studiomaertens.com/'
+
   },
   {
     color: '#d3b509',
@@ -94,33 +63,8 @@ export default [
         text: 'Site of The Day'
       }
     ],
-    url: 'https://erikamoreira.co/',
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/erika-moreira/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/erika-moreira/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/erika-moreira/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/erika-moreira/4.jpg'),
-        height: 1080,
-        width: 1920
-      }
-    ]
+    url: 'https://erikamoreira.co/'
+
   },
   {
     color: '#404642',
@@ -161,63 +105,8 @@ export default [
         text: 'FWA of The Day'
       }
     ],
-    url: 'https://brunoarizio.com/',
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/5.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/6.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/7.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/8.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/bruno-arizio/9.jpg'),
-        height: 1080,
-        width: 1920
-      }
-    ]
+    url: 'https://brunoarizio.com/'
+
   },
   {
     color: '#410807',
@@ -274,51 +163,8 @@ export default [
         text: 'FWA of The Day'
       }
     ],
-    url: 'https://dominic.bz/',
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/dominic-berzins/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/dominic-berzins/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/dominic-berzins/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/dominic-berzins/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/dominic-berzins/5.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/dominic-berzins/6.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/dominic-berzins/7.jpg'),
-        height: 1080,
-        width: 1920
-      }
-    ]
+    url: 'https://dominic.bz/'
+
   },
   {
     color: '#fff',
@@ -351,99 +197,8 @@ export default [
         text: 'Developer Award'
       }
     ],
-    url: 'https://cultldn.com/',
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/5.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/6.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/7.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/8.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/9.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/10.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/11.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/12.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/13.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/14.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/cult/15.jpg'),
-        height: 1080,
-        width: 1920
-      }
-    ]
+    url: 'https://cultldn.com/'
+
   },
   {
     apps: [
@@ -482,63 +237,8 @@ export default [
         text: 'Movida'
       }
     ],
-    template: 'portrait',
-    content: [
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/1.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/2.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/3.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/4.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/5.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/6.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/7.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/8.jpg'),
-        height: 667,
-        width: 375
-      },
-      {
-        type: 'portrait',
-        source: require('../assets/case/movida-kids/9.jpg'),
-        height: 667,
-        width: 375
-      }
-    ]
+    template: 'portrait'
+
   },
   {
     color: '#26648e',
@@ -570,57 +270,8 @@ export default [
         label: 'Brand',
         text: 'Lufthansa'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/5.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/6.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/7.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world-2/8.jpg'),
-        height: 1080,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#9bd8f7',
@@ -656,105 +307,8 @@ export default [
         label: 'FWA',
         text: 'FWA of The Day'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/5.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/6.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/7.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/8.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/9.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/10.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/11.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/12.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/13.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/14.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/15.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/the-difference-maker/16.jpg'),
-        height: 1080,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#ffb300',
@@ -786,51 +340,8 @@ export default [
         label: 'Brand',
         text: 'Lufthansa'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world/5.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world/6.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/say-yes-to-the-world/7.jpg'),
-        height: 1080,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#5741d2',
@@ -870,39 +381,8 @@ export default [
         label: 'Lovie Awards',
         text: 'Best Visual Design (Silver)'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/shell-make-the-future/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/shell-make-the-future/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/shell-make-the-future/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/shell-make-the-future/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/shell-make-the-future/5.jpg'),
-        height: 1080,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#ff351a',
@@ -934,39 +414,8 @@ export default [
         label: 'Brand',
         text: 'Corvette'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/corvette-sound-visualizer/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/corvette-sound-visualizer/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/corvette-sound-visualizer/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/corvette-sound-visualizer/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/corvette-sound-visualizer/5.jpg'),
-        height: 1080,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#00e2a5',
@@ -1004,69 +453,8 @@ export default [
       }
     ],
     url: 'http://nikecityfast.co.uk/',
-    template: 'landscape',
-    content: [
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/1.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/2.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/3.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/4.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/5.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/6.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/7.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/8.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/9.jpg'),
-        height: 414,
-        width: 736
-      },
-      {
-        type: 'landscape',
-        source: require('../assets/case/nike-city-fast/10.jpg'),
-        height: 414,
-        width: 736
-      }
-    ]
+    template: 'landscape'
+
   },
   {
     color: '#fd5c63',
@@ -1098,51 +486,8 @@ export default [
         label: 'Brand',
         text: 'Airbnb'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/airbnb-family-trips/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/airbnb-family-trips/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/airbnb-family-trips/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/airbnb-family-trips/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/airbnb-family-trips/5.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/airbnb-family-trips/6.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/airbnb-family-trips/7.jpg'),
-        height: 1080,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#12b691',
@@ -1171,39 +516,8 @@ export default [
         text: 'Believe Earth'
       }
     ],
-    url: 'http://believe.earth/earth/',
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/believe-earth/1.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/believe-earth/2.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/believe-earth/3.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/believe-earth/4.jpg'),
-        height: 1080,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/believe-earth/5.jpg'),
-        height: 1080,
-        width: 1920
-      }
-    ]
+    url: 'http://believe.earth/earth/'
+
   },
   {
     color: '#46c1be',
@@ -1232,80 +546,6 @@ export default [
         label: 'Brand',
         text: 'Discovery Kids'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/1.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/2.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/3.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/4.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/5.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/6.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/7.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/8.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/9.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/10.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/11.jpg'),
-        height: 650,
-        width: 1156
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/doki-vacations/12.jpg'),
-        height: 650,
-        width: 1156
-      }
     ]
   },
   {
@@ -1330,39 +570,8 @@ export default [
         label: 'Company',
         text: 'FIAP'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap-next/1.jpg'),
-        height: 5358,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap-next/2.jpg'),
-        height: 2098,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap-next/3.jpg'),
-        height: 3432,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap-next/4.jpg'),
-        height: 1897,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap-next/5.jpg'),
-        height: 3449,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#ed145b',
@@ -1386,39 +595,8 @@ export default [
         label: 'Company',
         text: 'FIAP'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap/1.jpg'),
-        height: 3235,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap/2.jpg'),
-        height: 14056,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap/3.jpg'),
-        height: 4886,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap/4.jpg'),
-        height: 2794,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/fiap/5.jpg'),
-        height: 3147,
-        width: 1920
-      }
     ]
+
   },
   {
     color: '#00ffff',
@@ -1442,32 +620,7 @@ export default [
         label: 'Company',
         text: 'FIAP'
       }
-    ],
-    content: [
-      {
-        type: 'screenshot',
-        source: require('../assets/case/app-marathon/1.jpg'),
-        height: 5781,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/app-marathon/2.jpg'),
-        height: 1190,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/app-marathon/3.jpg'),
-        height: 1202,
-        width: 1920
-      },
-      {
-        type: 'screenshot',
-        source: require('../assets/case/app-marathon/4.jpg'),
-        height: 1148,
-        width: 1920
-      }
     ]
+
   }
 ]
