@@ -44,12 +44,12 @@ module.exports = require("markdown-it");
 /***/ }),
 
 /***/ "react/jsx-dev-runtime":
-/*!****************************************!*\
-  !*** external "react/jsx-dev-runtime" ***!
-  \****************************************/
+/*!***********************************************************!*\
+  !*** external "next/dist/compiled/react/jsx-dev-runtime" ***!
+  \***********************************************************/
 /***/ ((module) => {
 
-module.exports = require("react/jsx-dev-runtime");
+module.exports = require("next/dist/compiled/react/jsx-dev-runtime");
 
 /***/ }),
 
