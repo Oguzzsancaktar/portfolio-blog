@@ -15,6 +15,20 @@ const { client } = require('./config')
 const app = express()
 const port = 3000
 
+const next = require('next')
+const dev = process.env.NODE_ENV !== 'production'
+const nextApp = next({ dev })
+const handle = nextApp.getRequestHandler()
+
+nextApp.prepare().then(() => {
+  console.log('Next.js is ready')
+  // your existing routes here
+  app.get('*', (req, res) => {
+    console.log('Next.js is handling the request')
+    return handle(req, res)
+  })
+})
+
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -38,6 +52,10 @@ const HandleLinkResolver = (doc) => {
 
   if (doc.type === 'about') {
     return '/about'
+  }
+
+  if (doc.type === 'discover') {
+    return '/discover'
   }
 }
 
@@ -126,6 +144,29 @@ app.get('/collections', async (req, res) => {
   const defaults = await handleRequest(req, res)
 
   res.render('pages/collections', { ...defaults })
+})
+
+app.get('/discover', async (req, res) => {
+  const defaults = await handleRequest(req, res)
+  const socials = [
+    {
+      label: 'Instagram',
+      url: 'https://www.twitter.com/_sancaktar'
+    },
+    {
+      label: 'GitHub',
+      url: 'https://github.com/Oguzzsancaktar'
+    },
+    {
+      label: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/oguztahasancaktar/'
+    },
+    {
+      label: 'Email',
+      url: 'mailto:oguztahasancaktar@gmail.com'
+    }
+  ]
+  res.render('pages/discover', { ...defaults, socials })
 })
 
 app.get('/detail/:uid', async (req, res) => {

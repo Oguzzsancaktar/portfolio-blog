@@ -1,0 +1,28 @@
+extends ../layout.pug
+
+block variables
+  - var template = 'discover'
+
+block content
+  div(class=`Wrapper discover__wrapper` data-background="#313131" data-color="#ffffff")
+    h1(class=`Title discover__title`) About Me
+
+    p(class=`Description discover__description`)
+      | I'm Oguz Taha Sancaktar. I'm a 👨🏻‍💻 Fullstack Developer with focus on Data Visualization, React, Typescipt, JavaScript and Design Patterns.
+      | I'm working at Digital Architecture 🖤 and I'm also a Freelancer at UpWork.
+
+    p(class=`Description discover__description`)
+      | I’m a software engineer with experience in developing both front-end and back-end systems.
+
+    p(class=`Description discover__description`)
+      | I create unique, innovative, open source, and responsive websites. I try to leave every bit I code I touch more readable, modular, performant and accessible than I found it. 
+
+    div(class=`Social discover__social`)
+      span(class="discover__social__title") Get In Touch
+
+      ul(class="discover__social__list")
+        each social, index in socials
+          li(class="discover__social__item")
+            a(class="discover__social__link" href=social.url target="_blank")=social.label
+
+    

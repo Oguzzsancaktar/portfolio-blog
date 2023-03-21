@@ -38,6 +38,7 @@ export default class Canvas {
 
     this.gl = this.renderer.gl
 
+    this.gl.canvas.classList.add('ogl-canvas')
     document.body.appendChild(this.gl.canvas)
   }
 
@@ -100,7 +101,7 @@ export default class Canvas {
     this.collections = null
   }
 
-  //   Detail
+  // Detail
 
   createDetail () {
     this.detail = new Detail({

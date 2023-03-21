@@ -1,9 +1,19 @@
+// Libs.
+import Stats from 'stats.js'
 import { each } from 'lodash'
-import About from 'pages/about'
+
+// Components
 import Canvas from 'components/Canvas'
+
+// Discover.
+import About from 'pages/about'
+import Blog from 'pages/blog'
 import Collections from 'pages/collections'
 import Detail from 'pages/detail'
 import Home from 'pages/home'
+import Discover from 'pages/discover'
+import DiscoverCanvas from 'components/DiscoverCanvas'
+
 import Preloader from './components/Preloader'
 import { Navigation } from './components/Navigation'
 import normalizeWheel from 'normalize-wheel'
@@ -17,6 +27,9 @@ class App {
     this.createPreloader()
     this.createNavigation()
     this.createPages()
+
+    this.createDiscoverCanvas()
+
     this.createPageTransition()
 
     this.addEventListeners()
@@ -24,7 +37,15 @@ class App {
 
     this.onResize()
 
+    this.createStats()
     this.update()
+  }
+
+  createDiscoverCanvas () {
+    this.discoverCanvas = new DiscoverCanvas({
+      template: this.template,
+      discover: this.pages.discover
+    })
   }
 
   createCanvas () {
@@ -58,13 +79,22 @@ class App {
   createPages () {
     this.pages = {
       about: new About(),
+      blog: new Blog(),
       collections: new Collections(),
       detail: new Detail(),
+      discover: new Discover(),
       home: new Home()
     }
 
     this.page = this.pages[this.template]
+
     this.page.create()
+  }
+
+  createStats () {
+    this.stats = new Stats()
+
+    document.body.appendChild(this.stats.domElement)
   }
 
   // events
@@ -72,13 +102,24 @@ class App {
   onPreloaded () {
     this.onResize()
     this.canvas.onPreloaded()
-    this.page.show()
+
+    // ekle show methodunu discovera
+    if (this.template !== 'discover') {
+      this.page.show()
+    }
+
+    this.discoverCanvas.onPreloaded(this.template)
   }
 
   async onChange (url) {
+    if (this.discoverCanvas.destroy) {
+      this.discoverCanvas.destroy()
+    }
     this.canvas.onChangeStart(this.template, url) // ?
 
-    this.pageTransition.show()
+    if (!url.includes('/detail') && !url.includes('/collections')) {
+      this.pageTransition.show()
+    }
     await this.page.hide()
 
     const request = await window.fetch(url)
@@ -104,8 +145,15 @@ class App {
       this.page = this.pages[this.template]
       this.page.create()
 
-      this.page.show()
-      await this.pageTransition.hide()
+      if (url.includes('/discover')) {
+        this.discoverCanvas.showMenuLogoVisualisation()
+      } else {
+        this.page.show()
+      }
+
+      if (!url.includes('/detail') && !url.includes('/collections')) {
+        await this.pageTransition.hide()
+      }
 
       this.addLinkListeners()
 
@@ -126,6 +174,10 @@ class App {
       }
       if (this.pageTransition && this.pageTransition.onResize) {
         this.pageTransition.onResize()
+      }
+
+      if (this.discoverCanvas && this.discoverCanvas.onResize) {
+        this.discoverCanvas.onResize()
       }
     })
   }
@@ -162,12 +214,24 @@ class App {
 
   // loop
   update () {
+    if (this.stats) {
+      this.stats.begin()
+    }
+
     if (this.page && this.page.update) {
       this.page.update()
     }
 
     if (this.canvas && this.canvas.update) {
       this.canvas.update(this.page.scroll)
+    }
+
+    if (this.discoverCanvas && this.discoverCanvas.update) {
+      this.discoverCanvas.update(this.template)
+    }
+
+    if (this.stats) {
+      this.stats.end()
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))
@@ -196,6 +260,10 @@ class App {
         const {
           target: { href }
         } = event
+
+        if (event.target.getAttribute('target')) {
+          return
+        }
         event.preventDefault()
         this.onChange(href)
       }

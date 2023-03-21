@@ -33,6 +33,9 @@ export default class Page {
 
   create () {
     this.element = document.querySelector(this.selector)
+
+    console.log('this.element page', document, this.selector, this.element)
+
     this.elements = {}
 
     this.scroll = {
@@ -102,7 +105,6 @@ export default class Page {
         backgroundColor: this.element.getAttribute('data-background'),
         color: this.element.getAttribute('data-color')
       })
-
       if (animation) {
         this.animationIn = animation
       } else {

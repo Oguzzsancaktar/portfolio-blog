@@ -59,6 +59,10 @@ img {
   }
 }
 
+.ogl-canvas{
+  z-index:  z("ogl-canvas");
+}
+
 .content {
   @extend %cover;
 }

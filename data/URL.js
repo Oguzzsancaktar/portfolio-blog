@@ -1,0 +1,23 @@
+export const URLS = [
+  '/about',
+  '/work',
+  '/projects',
+  '/project/studio-maertens',
+  '/project/erika-moreira',
+  '/project/bruno-arizio',
+  '/project/dominic-berzins',
+  '/project/cult',
+  '/project/say-yes-to-the-world-2',
+  '/project/movida-kids',
+  '/project/the-difference-maker',
+  '/project/say-yes-to-the-world',
+  '/project/shell-make-the-future',
+  '/project/corvette-sound-visualizer',
+  '/project/nike-city-fast',
+  '/project/airbnb-family-trips',
+  '/project/believe-earth',
+  '/project/doki-vacations',
+  '/project/app-marathon',
+  '/project/fiap-next',
+  '/project/fiap'
+]

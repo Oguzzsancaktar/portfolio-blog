@@ -157,9 +157,21 @@
 
 .detail__button__icon {
   @extend %cover;
+  color:#8d8d8d;
 
   pointer-events: none;
   path {
     pointer-events: none;
   }
+}
+
+
+.detail__button__icon__path{
+	stroke-dasharray: 0, 300;
+	transition: 0.5s;
+  transition-timing-function: ease;
+}
+
+.detail__button:hover .detail__button__icon .detail__button__icon__path{
+  stroke-dasharray: 300, 0;
 }
