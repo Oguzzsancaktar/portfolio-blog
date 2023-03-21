@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "portfolio & blog",
   "main": "index.js",
+  "engines": {
+    "node": "18.4.0"
+  },
   "scripts": {
     "backend:build": "node app.js",
     "backend:development": "nodemon app.js",
