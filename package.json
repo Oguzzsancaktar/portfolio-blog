@@ -9,11 +9,13 @@
     "frontend:build": "webpack --progress --config webpack.config.build.js",
     "frontend:development": "webpack serve --progress --config webpack.config.development.js",
     "start:all": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
-     "start": "node app.js"
+    "start": "node app.js"
   },
   "author": "Oguz Taha Sancaktar",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
     "babel-loader": "^9.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "concurrently": "^7.6.0",
