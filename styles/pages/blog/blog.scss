@@ -1,9 +1,46 @@
+.blog {
+  body {
+    margin: 0;
+    width: 100%;
+  }
 
-.blog{
-  background: black;
-  color: white;
+  &__content {
+    padding: 5rem;
+    padding-top: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: white;
+  }
+  body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f8f8f2;
+  }
 
-  img{
-    opacity: 1;
+  .dark-mode pre[class*="language-"] {
+    background-color: #282a36;
+    color: #f8f8f2;
+    padding: 16px;
+    border-radius: 4px;
+  }
+
+  .dark-mode pre[class*="language-"] code {
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  }
+
+  .dark-mode pre[class*="language-"]::before {
+    background-color: #f8f8f2;
+    border-radius: 0 0 4px 4px;
+    color: #282a36;
+    font-size: 12px;
+    padding: 0.25em 0.5em;
+    position: absolute;
+    right: 1em;
+    text-align: right;
+    text-transform: uppercase;
+    top: 0;
+  }
+
+  .dark-mode pre[class="language-javascript"]::before {
+    content: "JavaScript";
   }
 }

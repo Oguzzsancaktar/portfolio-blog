@@ -9,7 +9,6 @@ tags:
 ---
 
 Creating pages is an integral part of any framework. Today we'll be looking at three different types of pages that we can leverage in Next.js.
-{: .pull-quote }
 
 1. Static pages (`/about`, `/contact`)
 2. Dynamic page content (`/posts/all`)
@@ -26,7 +25,7 @@ Let's create a simple static contact page for our [Next.js tailwind starter](htt
 
 Create a file called `contact.js` in your `pages` folder.
 
-```jsx
+```js
 import Head from 'next/head';
 
 export default function Contact() {
